@@ -17,16 +17,18 @@
 
 ## Before you start: get the course (5 min)
 
-Do this once, before anything else. If your instructor gave you a machine that already has the course cloned and a `sandbox/worktrees/` folder inside it, skip to step 4 to check it.
+Do this once, on your class VM, before anything else. Open a terminal there.
 
-**1. You need:**
+**1. Check the VM's tools.** OpenCode, Git and Python come pre-installed, and a model provider is already connected. You're only checking: nothing to install.
 
-| Tool | Check | If it's missing |
-|---|---|---|
-| Git | `git --version` | [git-scm.com/downloads](https://git-scm.com/downloads) |
-| Python 3 | `python3 --version` | [python.org/downloads](https://www.python.org/downloads/). Nothing to `pip install`: the shop uses the standard library only |
-| OpenCode **1.18.33** | `opencode --version` | `npm install -g opencode-ai@1.18.33`. Use exactly this version: the commands in this course target it |
-| A model provider | Start `opencode`, type `/models`, and see at least one model | Your instructor tells you which provider to use. Connect it with `/connect` inside OpenCode. **Never put API keys in the repo** |
+| Check | Expect |
+|---|---|
+| `opencode --version` | `1.18.33`. The commands in this course target exactly this version |
+| `git --version` | Any version |
+| `python3 --version` | Any Python 3. Nothing to `pip install`: the shop uses the standard library only |
+| Run `opencode`, type `/models`, then quit with `ctrl+c` | At least one model listed |
+
+If any check fails, tell your instructor now; don't install or update anything yourself.
 
 **2. Clone the student repo.** It's the only repo you need. Put it anywhere; your home folder is fine.
 
@@ -64,7 +66,8 @@ It prints your Git, Python and OpenCode versions, then runs the tests. Expect `R
 
 | Problem | Fix |
 |---|---|
-| `opencode --version` isn't `1.18.33` | `npm install -g opencode-ai@1.18.33`, then open a new terminal |
+| `opencode` not found, or not `1.18.33` | Ask your instructor. Don't install it yourself: the VM is set up for the course |
+| `git clone` says the folder already exists | The course is already on your VM. `cd ~/opencode-orchestration` and go to step 3 |
 | `[setup] already set up` | You've already run it, which is fine. Go to step 4 |
 | `/models` shows nothing usable | Ask your instructor. Don't start Exercise 0 without a model |
 | `check_env.sh` reports failing tests | Make sure `setup.sh` ran and ended with `[setup] done`, then ask your instructor |

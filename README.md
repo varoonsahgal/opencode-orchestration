@@ -11,7 +11,7 @@ bash sandbox/setup.sh                              # once, before Module 0
 bash sandbox/panic-pantry/scripts/check_env.sh     # ends with [check_env] OK
 ```
 
-Then open [Module 0](student/module-0-baseline.md). Its first section, **Before you start**, walks through these commands, what you need installed, and what you should see.
+Then open [Module 0](student/module-0-baseline.md). Its first section, **Before you start**, walks through these commands and what you should see. Your class VM already has OpenCode, Git and Python installed.
 
 ## What's in here
 
