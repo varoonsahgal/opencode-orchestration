@@ -1,10 +1,4 @@
-Absolutely. I rewrote Module 0 so it now feels like the deliberate opening chapter of the architecture you built in Modules 1–4 rather than an older setup exercise. I preserved the kitchen-pass image, OpenCode TUI screenshot, METR/Anthropic references, 15-minute baseline, worktree workflow, self-grading Level Up, and the existing scoring mechanics. Pasted text
-
-The biggest change is the scorecard: it now separates the **matched 15-minute snapshot** from the **later lifecycle/coordination cost**, and every metric explains why it exists. That should make the comparison in Module 4 much easier to understand.
-
----
-
-# Module 0 — Establish the Baseline 📏
+# Module 0 — Establish the Baseline with ONE Agent 📏
 
 > 🎯 **Goal:** give one agent the entire ticket, measure what it produces in 15 minutes, and preserve the evidence.
 >
