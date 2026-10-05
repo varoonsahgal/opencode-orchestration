@@ -1,0 +1,26 @@
+{
+  "WELCOME10": {
+    "code": "WELCOME10",
+    "discount_pct": 10,
+    "status": "active",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  "STAFF-PICK": {
+    "code": "STAFF-PICK",
+    "discount_pct": 15,
+    "status": "active",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  "MIDNIGHT-VIP": {
+    "code": "MIDNIGHT-VIP",
+    "discount_pct": 20,
+    "status": "active",
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  "BIGSPENDER": {
+    "code": "BIGSPENDER",
+    "discount_pct": 30,
+    "status": "pending_approval",
+    "created_at": "2026-01-01T00:00:00Z"
+  }
+}

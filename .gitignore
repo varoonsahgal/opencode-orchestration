@@ -1,0 +1,4 @@
+sandbox/worktrees/
+sandbox/panic-pantry/data/promotions.json
+__pycache__/
+.DS_Store

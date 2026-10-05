@@ -1,0 +1,5 @@
+Read tickets/TICKET-001.md and src/panic_pantry/models.py, then read
+fixtures/promos_messy.csv. For every line of the file (1-based, header = line 1),
+predict the import disposition: created-active, created-pending_approval,
+skipped_duplicate, or error (with reason). Assume the store contains only the
+seed data in data/promotions.json.seed. Output one table, no code.

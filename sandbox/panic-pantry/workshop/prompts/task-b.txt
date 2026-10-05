@@ -1,0 +1,3 @@
+Read workshop/plan.md and tickets/TICKET-001.md. Identify the three highest
+risks in this plan for the Midnight Crunch Drop, ordered by consequence.
+For each: the risk, the evidence in the repo, and the smallest mitigation.
