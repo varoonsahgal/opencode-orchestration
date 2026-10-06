@@ -992,7 +992,7 @@ Then route.
 
 Compare two model/effort configurations on the **same inputs** using observable outcomes.
 
-Then convert what you observed, here *and* in your Module 3 run ledger, into a routing policy for the crew.
+Then convert what you observed, here *and* in your Module 3 gate log (`workshop/integration-notes.md`), into a routing policy for the crew.
 
 ---
 

@@ -157,32 +157,35 @@ These files are the **experiment harness**, not the **system under test**. Keep 
 
 > 🔑 **Do not accidentally score the harness as if it were the product.**
 
-## A3. Create the run ledger
+## A3. Meet the gate 🚧
 
-Create `workshop/integration-notes.md`:
+You won't keep a ledger by hand. The starter repo ships a checker that does the three-question gate for you:
 
-```markdown
-# Orchestrated Run Ledger
-
-| Artifact | Owner | State | Acceptance check | Result | Next action |
-|---|---|---|---|---|---|
-| importer.py | Implementer | planned | contract tests | — | — |
-| test_promo_import.py | Breaker | planned | breaker tests load/run | — | — |
-| integrated change | Lead / human | planned | full suite | — | — |
-| review | Reviewer | planned | review checklist | — | — |
-
-## Repairs
-
-| Finding / failed check | Artifact owner | Repair requested | Result |
-|---|---|---|---|
-
-## Human interventions
-
-| Time | Intervention | Why |
-|---|---|---|
+```bash
+bash scripts/gate.sh builder        # importer.py, after Implementer returns
+bash scripts/gate.sh breaker        # test_promo_import.py, after Breaker returns
+bash scripts/gate.sh integration    # the staged product diff + the whole suite
 ```
 
-**You** maintain this file, not Lead. Lead has `edit: deny` and should stay a coordinator.
+| Gate question | What `gate.sh` does |
+|---|---|
+| **Ownership / scope** | Lists every changed product file and checks that each one sits on exactly one card's `TOUCH` line. A frozen file or a file that no card owns means **FAIL**. |
+| **Evidence** | Runs the card's `DONE` command **itself**. It never reads the agent's report. For Breaker, it checks the "every test skipped until importer.py exists" rule in a temporary copy that has no importer. |
+
+Each run ends with **PASS: accept it** or **FAIL: not accepted**. It also adds one line to the **Gate log** in `workshop/integration-notes.md` and creates that file the first time. The log is your record of the run, and nobody fills it in by hand.
+
+Try it now, before anything has run:
+
+```bash
+bash scripts/gate.sh builder
+# FAIL  returned   src/panic_pantry/importer.py is unchanged: nothing has come back yet
+```
+
+That's correct: nothing has been returned, so nothing can be accepted.
+
+> ⚠️ git can't see **who** wrote a file, only what changed. The gate checks scope. You still confirm ownership by opening the child session.
+
+Also put a sticky note or a scrap of paper next to your keyboard for **intervention tally marks**, just like in Module 0. That's the only thing you track by hand.
 
 ## A4. Preflight checklist
 
@@ -193,7 +196,7 @@ Don't start the clock until every row is true. Fix the harness *before* timing. 
 | **Contract frozen** | `tickets/TICKET-001.md` criteria 1–9 are unambiguous, especially: above 20% → pending approval · exactly 20% → active · the service decides approval. If anything is ambiguous, **do not launch workers.** |
 | **Ownership** | `@implementer` → `src/panic_pantry/importer.py` · `@breaker` → `tests/test_promo_import.py` · `@reviewer` → nothing · `lead` → nothing · final decision → you |
 | **Permissions** | Lead may launch only Implementer, Breaker, Reviewer. Implementer can edit only `importer.py`; Breaker only `test_promo_import.py`; Reviewer nothing. |
-| **Model matched** | Lead, Implementer, and Breaker use the Module 0 model + variant from your Module 0 scorecard. Don't guess—if you can't identify it, write `MODEL CONDITION NOT MATCHED` in the ledger and don't call the result a matched comparison. |
+| **Model matched** | Lead, Implementer, and Breaker use the Module 0 model + variant from your Module 0 scorecard. Don't guess—if you can't identify it, write `MODEL CONDITION NOT MATCHED` at the top of `workshop/integration-notes.md` and don't call the result a matched comparison. |
 
 There's no routing yet: every agent inherits the session model. Select the Module 0 model + variant in `/models`, then check that no agent pins its own:
 
@@ -239,19 +242,25 @@ Rules:
 7. Never weaken a test, contract, or permission merely to make the run pass.
 8. Do not delegate to any agent other than implementer, breaker, or reviewer.
 9. Stop when the 15-minute implementation window ends, even if unfinished.
+10. After every worker returns, print this status board, then continue:
+
+| Artifact | Owner | State | Evidence you checked |
+|---|---|---|---|
+| importer.py | implementer | planned/dispatched/returned/accepted/failed | |
+| test_promo_import.py | breaker | planned/dispatched/returned/accepted/failed | |
 
 Begin.
 ```
 
 > 💡 **Why do the workers run one at a time?** Implementer and Breaker are logically independent: both build against the frozen contract, and neither needs the other's unfinished output. But this lab's pinned OpenCode V1 runs delegated children in the **foreground**, so they execute sequentially. Order doesn't matter. *Independence is a property of the work; concurrency is a property of the scheduler.*
 
-## B3. While it runs: watch the state, not the prose 👀
+## B3. While it runs: audit Lead's board 👀
 
-Each time a child returns:
+Lead prints a status board each time a worker returns. **That board is a claim.** Your job is to audit it, not to copy it:
 
-1. Move its ledger row `planned → dispatched → returned`. **Not** `accepted` yet.
-2. Apply the three-question gate (ownership, scope, evidence) from idea 1.
-3. Only then mark it `accepted`, or `failed` with a next action.
+1. When Lead says a worker has **returned**, run its gate in a second terminal: `bash scripts/gate.sh builder` or `bash scripts/gate.sh breaker`.
+2. Compare. If Lead says `accepted` and the gate says **FAIL**, Lead accepted a receipt without checking it. That's a finding about your control plane. Tell Lead what the gate printed (one tally mark).
+3. A **FAIL** is not accepted, whatever anyone's report says. It goes back to the artifact's owner (B5).
 
 Then inspect the child sessions, using the navigation keys from Module 2:
 
@@ -281,7 +290,11 @@ Now run the integrated suite:
 python3 -m unittest discover -s tests -v
 ```
 
-This is its own gate. "Implementer passed its tests" and "Breaker's tests load" don't prove that the two pieces work together. Record the result in the ledger.
+This is its own gate. "Implementer passed its tests" and "Breaker's tests load" don't prove that the two pieces work together. Run the integration gate, which also checks that you staged only product files:
+
+```bash
+bash scripts/gate.sh integration
+```
 
 ## B5. If integration fails, route the repair to the owner 🚨
 
@@ -303,11 +316,11 @@ DONE:   the failing test passes and the full contract suite passes.
 REPORT: changed lines · commands run · assumptions.
 ```
 
-Decomposition doesn't happen only at the start. You decompose again whenever feedback creates new work. Log every repair in the ledger's **Repairs** table.
+Decomposition doesn't happen only at the start. You decompose again whenever feedback creates new work. After each repair, rerun the owner's gate. The gate log records it for you: a **FAIL** followed later by a **PASS** for the same artifact is one repair cycle.
 
 ## B6. Hard stop 🛑
 
-At 15 minutes, **stop**, even if a child is unfinished, tests are red, or a repair is still open. Record what returned, what passed, what failed, and what remained open.
+At 15 minutes, **stop**, even if a child is unfinished, tests are red, or a repair is still open. If you haven't run a gate on something that returned, run it now. The gate log then shows what returned, what passed, what failed, and what remained open.
 
 > 🔑 **Unfinished under the same limit is valid experimental data.**
 
@@ -364,7 +377,7 @@ Reviewer produces **evidence**, not commands. Turn every finding into a decision
 
 ## C3. Repair loop
 
-For each `FIX`, Lead writes a narrow repair card (same format as B5), the **original owner** repairs, the tests rerun, and Reviewer rechecks if needed.
+For each `FIX`, Lead writes a narrow repair card (same format as B5), the **original owner** repairs, you rerun that owner's gate and then `gate.sh integration`, and Reviewer rechecks if needed.
 
 ```mermaid
 flowchart LR
@@ -384,6 +397,15 @@ Record every cycle. Each one is part of the coordination tax.
 ## D1. Fill in the scorecard
 
 Use the same definitions as your Module 0 scorecard. Don't invent token or cost data you can't observe.
+
+Most of the Orchestrated column comes from things you already have:
+
+| Row | Where it comes from |
+|---|---|
+| Contract tests, whole suite, changed files | `bash scripts/score.sh` |
+| Repair cycles | Gate log: count each FAIL that later turned into a PASS for the same gate |
+| Human interventions | Your tally marks |
+| Integration/rework minutes | Gate log timestamps after the hard stop, or your timer |
 
 | Metric | Single agent | Orchestrated |
 |---|---:|---:|
@@ -465,7 +487,7 @@ One run is one observation, and model output varies. The honest claim is narrow:
 
 - `src/panic_pantry/importer.py`
 - `tests/test_promo_import.py`
-- `workshop/integration-notes.md`, containing the ledger, repairs, Reviewer dispositions, scorecard, and conclusion
+- `workshop/integration-notes.md`, containing the gate log (written by `gate.sh`), Reviewer dispositions, scorecard, and conclusion
 - captured product diff and full test output
 
 The `.opencode/` files and cards are experiment infrastructure, not product output.
@@ -483,10 +505,10 @@ Before leaving Module 3:
 - [ ] Breaker card went to `@breaker`
 - [ ] Timed Implementer/Breaker/Lead model condition matched Module 0—or mismatch was explicitly recorded
 - [ ] Each product file had one clear owner
-- [ ] Every returned artifact crossed an acceptance gate before being called accepted
+- [ ] Every returned artifact passed `scripts/gate.sh` before you called it accepted, and the gate log shows it
 - [ ] Hard stop occurred at 15 minutes regardless of completion
 - [ ] Product diff contains `src/` and `tests/`, not orchestration scaffolding
-- [ ] Full suite ran after integration
+- [ ] `gate.sh integration` ran after staging, and you reran it after every repair
 - [ ] Reviewer ran after the matched window
 - [ ] Every Reviewer finding became FIX, ACCEPT, or DEFER
 - [ ] FIX items returned to the original artifact owner

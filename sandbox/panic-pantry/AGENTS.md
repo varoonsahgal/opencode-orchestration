@@ -5,6 +5,7 @@
 - Standard library only. There is no pytest and nothing to install.
 - Reset sandbox state: `bash scripts/reset.sh`
 - Environment check: `bash scripts/check_env.sh`
+- Acceptance gate (Module 3, run by the human): `bash scripts/gate.sh builder|breaker|integration`
 
 ## Style
 - Python 3 stdlib only; do not add dependencies.
