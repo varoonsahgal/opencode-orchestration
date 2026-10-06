@@ -8,19 +8,19 @@ Every objective and topic from [COURSE_OUTLINE.md](../COURSE_OUTLINE.md):
 |---|---|
 | Break complex features into agent-ready units; boundaries; task size | ML1 (bad-split Predict: split by file) ([module 1](module-1-decomposition.md)) |
 | Write task specifications and acceptance criteria | ML1 (the 6-line card), Ex1 Steps 3–5, including the Stranger Test in Step 5 ([module 1](module-1-decomposition.md)) |
-| Identify dependencies, sequencing, safe parallel work, needed context | ML1 (Fig. 1), Ex1 (plan's Order line; critical-path Level up), ML3, Ex3 ([module 1](module-1-decomposition.md), [module 3](module-3-parallel-run.md)) |
+| Identify dependencies, sequencing, safe parallel work, needed context | ML1 (Fig. 1), Ex1 (plan's Order line; critical-path Level up), ML3, Ex3 ([module 1](module-1-decomposition.md), [module 3](module-3-execute.md)) |
 | Prompting → orchestrating; too-large/ambiguous/coupled tasks | Opening, Ex0 ([module 0](module-0-baseline.md)) |
 | Primary agent vs subagents; child sessions; fresh context | ML2, Ex2 ([module 2](module-2-agent-crew.md)) |
-| Delegating (Task tool) vs invoking directly (@-mention); letting primary pick subagents | ML2, Ex2, Ex3 ([module 2](module-2-agent-crew.md), [module 3](module-3-parallel-run.md)) |
-| Foreground vs background delegated work | ML3 — explained + recorded instructor demo (experimental in pinned V1; not exercised live) ([module 3](module-3-parallel-run.md)) |
+| Delegating (Task tool) vs invoking directly (@-mention); letting primary pick subagents | ML2, Ex2, Ex3 ([module 2](module-2-agent-crew.md), [module 3](module-3-execute.md)) |
+| Foreground vs background delegated work | ML3 — explained + recorded instructor demo (experimental in pinned V1; not exercised live) ([module 3](module-3-execute.md)) |
 | Navigating parent/child sessions | ML2, Ex2 step 5 ([module 2](module-2-agent-crew.md)) |
 | When delegation adds value vs keeping work local | Ex1 Step 1 (keep or delegate), capstone step 2 ([module 1](module-1-decomposition.md), [module 5](module-5-capstone.md)) |
 | Creating custom agents; instructions; roles; reusable designs | Ex2 (implementer, reviewer, lead; `/review-ticket` command Level up) ([module 2](module-2-agent-crew.md)) |
-| Tool/permission control; read-only reviewer; controlled write access; preventing dangerous actions; controlling delegation targets | ML2, Ex2: `edit: deny` reviewer, path-locked implementer, `bash` allowlists, locks proved with `opencode debug agent` (Step 3); `permission.task` allowlist on the lead (Step 6); trifecta Level up. Ex3 lets the primary route a card ([module 2](module-2-agent-crew.md), [module 3](module-3-parallel-run.md)) |
+| Tool/permission control; read-only reviewer; controlled write access; preventing dangerous actions; controlling delegation targets | ML2, Ex2: `edit: deny` reviewer, path-locked implementer, `bash` allowlists, locks proved with `opencode debug agent` (Step 3); `permission.task` allowlist on the lead (Step 6); trifecta Level up. Ex3 lets the primary route a card ([module 2](module-2-agent-crew.md), [module 3](module-3-execute.md)) |
 | Model capability vs complexity/risk; reasoning-quality/latency/cost; variants and effort levels; escalation; avoiding expensive-model waste | ML4, Ex4 ([module 4](module-4-model-routing.md)) |
 | Selecting models in OpenCode; per-agent models | ML4 (`/models`, per-agent `model`), Ex4 ([module 4](module-4-model-routing.md)) |
-| Parallel orchestration; shared context; file ownership; conflict prevention; branches/worktrees; deliverable tracking | ML3, Ex3 ([module 3](module-3-parallel-run.md)) |
-| Review, validate, integrate multi-agent results | ML5, Ex3 integration, capstone ([module 3](module-3-parallel-run.md), [module 5](module-5-capstone.md)) |
+| Parallel orchestration; shared context; file ownership; conflict prevention; branches/worktrees; deliverable tracking | ML3, Ex3 ([module 3](module-3-execute.md)) |
+| Review, validate, integrate multi-agent results | ML5, Ex3 integration, capstone ([module 3](module-3-execute.md), [module 5](module-5-capstone.md)) |
 
 ## Appendix B — Command crib sheet
 
@@ -112,7 +112,7 @@ Look things up here; don't pre-read it. Each term links to the module that teach
 | **Idempotent** | Safe to run twice: the second run changes nothing | [TICKET-001](../sandbox/panic-pantry/tickets/TICKET-001.md), criterion 6 |
 | **Disposition** | The decided outcome for an item. For a CSV row: which `ImportReport` bucket it lands in. For a review finding: fix, accept with reason, or defer with an owner | [Module 4](module-4-model-routing.md), [Module 5](module-5-capstone.md) |
 | **Intervention** | Any time you step into a run to steer it — a correction, clarification, or manual edit | [Module 0](module-0-baseline.md) |
-| **Matched comparison** | Two runs with the same commit, ticket, tests, model, and timebox, so the only difference is the approach | [Module 3](module-3-parallel-run.md) |
+| **Matched comparison** | Two runs with the same commit, ticket, tests, model, and timebox, so the only difference is the approach | [Module 3](module-3-execute.md) |
 
 **OpenCode vocabulary**
 
@@ -121,15 +121,15 @@ Look things up here; don't pre-read it. Each term links to the module that teach
 | **Primary agent** | The agent you talk to directly in the main conversation. Built-ins: **Build** (full tools) and **Plan** (can't edit your files, but can still run shell commands). Tab switches between them | [Module 0](module-0-baseline.md) |
 | **Subagent** | A helper agent the primary (or you) hands one task to. Built-ins in 1.18.33: **explore** (fast codebase search; read-only by its prompt only, since it may run shell commands) and **general** (multi-step tasks; can edit). You'll build your own | [Module 2](module-2-agent-crew.md) |
 | **Session / child session** | A session is one conversation. A delegation creates a **child session** under it — a new conversation with fresh, empty context | [Module 2](module-2-agent-crew.md) |
-| **Session tree** | A parent session plus the child sessions its delegations created. You walk it with the child-navigation keys | [Module 3](module-3-parallel-run.md) |
+| **Session tree** | A parent session plus the child sessions its delegations created. You walk it with the child-navigation keys | [Module 3](module-3-execute.md) |
 | **@-mention** | *You* choose the subagent: `@reviewer check the diff` | [Module 2](module-2-agent-crew.md) |
-| **Task tool** | The tool the *primary agent* calls to delegate on its own. It chooses the subagent by reading each subagent's `description`; `permission.task` limits which ones it may pick. Subagents don't get it | [Module 2](module-2-agent-crew.md), [Module 3](module-3-parallel-run.md) |
+| **Task tool** | The tool the *primary agent* calls to delegate on its own. It chooses the subagent by reading each subagent's `description`; `permission.task` limits which ones it may pick. Subagents don't get it | [Module 2](module-2-agent-crew.md), [Module 3](module-3-execute.md) |
 | **Permission** (`allow` / `ask` / `deny`) | Configured authority per action: `allow` runs, `ask` pauses for your approval, `deny` blocks — whatever the prompt says | [Module 2](module-2-agent-crew.md) |
 | **Frontmatter** | The YAML block between `---` fences at the top of an agent file — its settings. The body below is its system prompt | [Module 2](module-2-agent-crew.md) |
 | **Provider / model ID** | A provider is a model service (Anthropic, OpenAI, OpenCode Zen, …). Models are named `provider_id/model_id` | [Module 4](module-4-model-routing.md) |
 | **Variant (effort)** | A preset for the same model — e.g., a higher thinking budget or reasoning effort. `ctrl+t` cycles variants | [Module 4](module-4-model-routing.md) |
 | **Leader key** | A prefix key for many shortcuts; `ctrl+x` by default. `<Leader>+Down` means press `ctrl+x`, release, then press ↓ | [Module 0](module-0-baseline.md) |
-| **Foreground / background delegation** | Foreground: the primary waits for the child to finish. Background: the child runs while the primary keeps working (experimental in the V1 line; not used live today) | [Module 3](module-3-parallel-run.md) |
+| **Foreground / background delegation** | Foreground: the primary waits for the child to finish. Background: the child runs while the primary keeps working (experimental in the V1 line; not used live today) | [Module 3](module-3-execute.md) |
 
 **Git words** (tag, branch, worktree, tracked, untracked): see [Appendix F](#appendix-f--git-in-90-seconds).
 

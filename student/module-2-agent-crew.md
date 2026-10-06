@@ -2155,4 +2155,4 @@ Which brain fits each role?
 
 ---
 
-**Next:** [Module 3](module-3-parallel-run.md): let the crew loose on the real ticket, verify everything it hands back, and compare the result with your Module 0 baseline.
+**Next:** [Module 3](module-3-execute.md): let the crew loose on the real ticket, verify everything it hands back, and compare the result with your Module 0 baseline.

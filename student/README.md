@@ -29,7 +29,7 @@ If you read nothing else, read this.
 | 4 | Pick the right model for each piece, using what Module 3 showed you | Budget | Cheap model + hard check beats pricey model + blind trust |
 | 5 | Handle a launch-night failure | Recover | Green tests are evidence, not a verdict |
 
-Start with [Module 0](module-0-baseline.md), then [1](module-1-decomposition.md), [2](module-2-agent-crew.md), [3](module-3-parallel-run.md), [4](module-4-model-routing.md), [5](module-5-capstone.md). The [appendices](appendices.md) hold the glossary, Git in 90 seconds, a command crib sheet and sources.
+Start with [Module 0](module-0-baseline.md), then [1](module-1-decomposition.md), [2](module-2-agent-crew.md), [3](module-3-execute.md), [4](module-4-model-routing.md), [5](module-5-capstone.md). The [appendices](appendices.md) hold the glossary, Git in 90 seconds, a command crib sheet and sources.
 
 ---
 
