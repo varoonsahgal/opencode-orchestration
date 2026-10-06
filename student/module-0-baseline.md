@@ -2,7 +2,7 @@
 
 > 🎯 **Goal:** give one agent the entire ticket, measure what it produces in 15 minutes, and preserve the evidence.
 >
-> In Module 4, you'll solve the same problem with an orchestrated crew and compare where orchestration **helped, hurt, or made no difference**.
+> In Module 3, you'll solve the same problem with an orchestrated crew and compare where orchestration **helped, hurt, or made no difference**.
 >
 > **You'll leave with:**
 >
@@ -17,13 +17,13 @@
 | **0 ← you are here** | **Measure one agent before changing the workflow** | **Baseline** | **Measure before you multiply** |
 | 1 | Turn one job into independently understandable pieces | **Decompose** | Split by independent outcome |
 | 2 | Give each worker only the authority it needs | **Isolate** | Minimum necessary authority |
-| 3 | Give each worker enough model capability | **Route** | Minimum sufficient capability |
-| 4 | Run, verify, integrate, review, and repair | **Execute** | Returned is not done |
+| 3 | Run, verify, integrate, review, and repair | **Execute** | Returned is not done |
+| 4 | Give each worker enough model capability | **Route** | Minimum sufficient capability |
 | 5 | Respond to a launch-night failure | **Recover** | Green tests are evidence, not a verdict |
 
 ---
 
-# Why start with one agent?
+# Why start with one agent? 🤔
 
 Because otherwise you won't know whether orchestration actually helped.
 
@@ -71,11 +71,11 @@ flowchart LR
 
 ---
 
-# What this experiment is — and is not
+# What this experiment is — and is not 🧪
 
 Today you are creating a **baseline observation**.
 
-Later, Module 4 will reuse:
+Later, Module 3 will reuse:
 
 - the same starter commit
 - the same ticket
@@ -91,7 +91,7 @@ Module 0:
 one agent
 ```
 
-Module 4:
+Module 3:
 
 ```text
 Lead
@@ -113,7 +113,7 @@ That gives us a much better basis for comparison than simply saying:
 
 This is a classroom comparison, not a scientific benchmark.
 
-By Module 4, **you will know more** about:
+By Module 3, **you will know more** about:
 
 - the ticket
 - likely bugs
@@ -208,11 +208,11 @@ sandbox/worktrees/orchestrated
 
 The first is for today's baseline.
 
-The second is reserved for Module 4.
+The second is reserved for Module 3.
 
 > ⚠️ **Run setup once.**
 >
-> Recreating the worktrees later can erase your Module 0 and Module 4 work.
+> Recreating the worktrees later can erase your Module 0 and Module 3 work.
 
 The setup script protects against accidental reruns unless explicitly forced.
 
@@ -229,12 +229,12 @@ flowchart TB
     S["starter commit"]
 
     S --> B["single-agent worktree<br/>Module 0"]
-    S --> O["orchestrated worktree<br/>Module 4"]
+    S --> O["orchestrated worktree<br/>Module 3"]
 ```
 
 They're separate working directories attached to the same Git repository.
 
-You'll explore what worktrees isolate—and what they **do not** isolate—in Module 4.
+You'll explore what worktrees isolate—and what they **do not** isolate—in Module 3.
 
 ---
 
@@ -270,13 +270,13 @@ That's intentional.
 
 ---
 
-# Know your three workspaces
+# Know your three workspaces 🗂️
 
 | Folder | Used in |
 |---|---|
 | `sandbox/worktrees/single-agent` | **Module 0** |
-| `sandbox/panic-pantry` | **Modules 1–3** |
-| `sandbox/worktrees/orchestrated` | **Modules 4–5** |
+| `sandbox/panic-pantry` | **Modules 1, 2, 4** |
+| `sandbox/worktrees/orchestrated` | **Modules 3 + 5** |
 
 Think:
 
@@ -284,16 +284,19 @@ Think:
 Module 0
 baseline experiment
 
-Modules 1–3
+Modules 1–2
 design the orchestration system
 
-Modules 4–5
+Module 3 + Module 5
 run the orchestrated system
+
+Module 4
+tune it: which model for which worker?
 ```
 
 ---
 
-# Troubleshooting setup
+# Troubleshooting setup 🩹
 
 | Problem | Fix |
 |---|---|
@@ -305,7 +308,7 @@ run the orchestrated system
 
 ---
 
-# Why measure first?
+# Why measure first? 📐
 
 There are three reasons.
 
@@ -395,13 +398,13 @@ You:
 
 > 🔑 **No plate leaves the kitchen because the cook said, “Trust me.”**
 
-This becomes Module 4's rule:
+This becomes Module 3's rule:
 
 > **Returned is not done.**
 
 ---
 
-# Read the cockpit before every run
+# Read the cockpit before every run 🛩️
 
 ![The OpenCode terminal UI: a conversation in the middle, and a status bar at the bottom reading "Build · Claude Opus 4.5 · OpenCode Zen" with hints for esc interrupt, ctrl+t variants, tab agents, and ctrl+p commands](images/opencode-tui.png)
 
@@ -491,7 +494,7 @@ Consistency matters more than philosophical perfection.
 
 ---
 
-# What are we scoring?
+# What are we scoring? 🎯
 
 This is where the baseline becomes much clearer.
 
@@ -519,7 +522,7 @@ RESOURCE COST
 
 ---
 
-# Two views of the experiment
+# Two views of the experiment 👀
 
 Later you'll read the comparison in **two passes**.
 
@@ -560,7 +563,7 @@ Today, Module 0 primarily creates the first view.
 
 ---
 
-# Scorecard — Single Agent vs. Orchestrated Crew
+# Scorecard — Single Agent vs. Orchestrated Crew 📋
 
 Create or open:
 
@@ -576,14 +579,14 @@ Use this structure.
 
 These rows tell us whether the comparison is actually comparable.
 
-| Metric | Module 0 — one agent | Module 4 — crew | How recorded |
+| Metric | Module 0 — one agent | Module 3 — crew | How recorded |
 |---|---|---|---|
 | Starter commit | | | Git / scorer |
 | Model + variant | | | **MANUAL** |
 | Ticket | `TICKET-001` | `TICKET-001` | Fixed |
 | Implementation timebox | 15 min | 15 min | Fixed |
 
-> If Module 4 cannot reproduce the same model + variant, write:
+> If Module 3 cannot reproduce the same model + variant, write:
 >
 > `NOT MATCHED`
 >
@@ -593,7 +596,7 @@ These rows tell us whether the comparison is actually comparable.
 
 ## B. Quality at the hard stop
 
-| Metric | Module 0 — one agent | Module 4 — crew | What it tells us |
+| Metric | Module 0 — one agent | Module 3 — crew | What it tells us |
 |---|---|---|---|
 | Contract tests passing `/9` | | | Frozen acceptance criteria |
 | Whole suite | | | Regressions / overall health |
@@ -611,7 +614,7 @@ bash scripts/score.sh
 
 ## C. Human + coordination effort
 
-| Metric | Module 0 — one agent | Module 4 — crew | What it tells us |
+| Metric | Module 0 — one agent | Module 3 — crew | What it tells us |
 |---|---|---|---|
 | Human interventions during timed run | | | Supervision burden |
 | Breaker findings/tests | n/a | | Independent executable evidence |
@@ -623,7 +626,7 @@ bash scripts/score.sh
 
 ## D. Time + resource usage
 
-| Metric | Module 0 — one agent | Module 4 — crew | How recorded |
+| Metric | Module 0 — one agent | Module 3 — crew | How recorded |
 |---|---|---|---|
 | Timed-window elapsed | | | MANUAL |
 | Total human elapsed including post-window work | | | MANUAL |
@@ -654,13 +657,13 @@ Now every row has a reason.
 
 ---
 
-# A quick example
+# A quick example 💡
 
 **Do not copy these numbers.**
 
 Imagine you eventually get:
 
-| Metric | Module 0 | Module 4 |
+| Metric | Module 0 | Module 3 |
 |---|---:|---:|
 | Model + variant | Model-X / medium | Model-X / medium |
 | Contract tests | 7/9 | 9/9 |
@@ -693,7 +696,7 @@ That's what the scorecard is for.
 
 ---
 
-# Step 1 — Warm-up: see where the rules come from
+# Step 1 — Warm-up: see where the rules come from 🔥
 
 **Time: about 8 minutes**
 
@@ -868,7 +871,7 @@ Complete this checklist.
 
 Why `/new`?
 
-Because we don't want the warm-up conversation giving this run information the Module 4 crew won't automatically receive.
+Because we don't want the warm-up conversation giving this run information the Module 3 crew won't automatically receive.
 
 ---
 
@@ -920,13 +923,13 @@ Because:
 tests/test_promo_import.py
 ```
 
-is reserved for Module 4's independent Breaker.
+is reserved for Module 3's independent Breaker.
 
 We want the baseline implementation and independent attack tests to remain separable.
 
 ---
 
-# Step 3 — Hard stop
+# Step 3 — Hard stop 🛑
 
 At 15 minutes:
 
@@ -966,13 +969,13 @@ If it was still working when the clock stopped:
 
 ---
 
-# Step 4 — Score the artifact
+# Step 4 — Score the artifact 🧮
 
 Now the agent has **returned**.
 
 We haven't decided whether its artifact is good.
 
-This is your first exposure to a concept that becomes central in Module 4:
+This is your first exposure to a concept that becomes central in Module 3:
 
 ```text
 RETURNED
@@ -1053,7 +1056,7 @@ src/
 tests/
 ```
 
-Later, Module 4 also contains orchestration files under:
+Later, Module 3 also contains orchestration files under:
 
 ```text
 .opencode/
@@ -1064,7 +1067,7 @@ Those are part of the **experiment harness**, not the product itself.
 
 ---
 
-# Step 5 — Add the manual evidence
+# Step 5 — Add the manual evidence ✍️
 
 Now fill the Module 0 column manually for:
 
@@ -1095,7 +1098,7 @@ Never estimate.
 
 ---
 
-# Step 6 — Save the baseline diff
+# Step 6 — Save the baseline diff 💾
 
 We want the exact artifact for later comparison.
 
@@ -1165,7 +1168,7 @@ Tokens:
 Cost:
 ```
 
-The Module 4-only rows stay blank for now.
+The Module 3-only rows stay blank for now.
 
 ---
 
@@ -1241,7 +1244,7 @@ You are finished with Module 0 when:
 
 ---
 
-# Troubleshooting
+# Troubleshooting 🩹
 
 | Problem | Fix |
 |---|---|
@@ -1257,7 +1260,7 @@ You are finished with Module 0 when:
 
 ---
 
-# Debrief
+# Debrief 🗣️
 
 <details>
 <summary><b>▶ Why did we count interventions?</b></summary>
@@ -1275,7 +1278,7 @@ direction
 
 that matters.
 
-When Module 4 introduces several workers, your ability to personally supervise every one decreases.
+When Module 3 introduces several workers, your ability to personally supervise every one decreases.
 
 So intervention count is a rough measure of:
 
@@ -1371,7 +1374,7 @@ If Module 0 used:
 Model A / medium
 ```
 
-and Module 4 used:
+and Module 3 used:
 
 ```text
 Model B / maximum
@@ -1389,7 +1392,7 @@ or simply:
 more model capability
 ```
 
-Module 4 will deliberately separate those questions.
+Module 3 will deliberately separate those questions.
 
 </details>
 
@@ -1424,7 +1427,7 @@ It's just appropriately scoped evidence.
 
 ---
 
-# The scorecard in one picture
+# The scorecard in one picture 🖼️
 
 ```text
                  15-MINUTE RUN
@@ -1451,7 +1454,7 @@ It's just appropriately scoped evidence.
                PRESERVE RECEIPTS
                        │
                        ▼
-                   MODULE 4
+                   MODULE 3
 ```
 
 ---
@@ -1469,7 +1472,7 @@ And keep the kitchen image in your head:
 
 ---
 
-## The comparison you'll complete in Module 4
+## The comparison you'll complete in Module 3
 
 At the end of the orchestrated run, you'll read the scorecard in two passes:
 

@@ -1,6 +1,6 @@
-# Module 4 — Execute the Crew 🚦
+# Module 3 — Execute the Crew 🚦
 
-> 🎯 **Goal:** put the cards, capability boundaries, model decisions, acceptance checks, and repair rules from Modules 1–3 into one real orchestrated workflow—then compare it fairly with the single-agent baseline.
+> 🎯 **Goal:** put the cards, capability boundaries, acceptance checks, and repair rules from Modules 1–2 into one real orchestrated workflow—then compare it fairly with the single-agent baseline.
 >
 > **You'll leave with:**
 >
@@ -10,27 +10,31 @@
 > - `workshop/integration-notes.md`
 > - a matched comparison against Module 0
 > - evidence of where orchestration helped—and where it cost you
+> - 🪝 a hook that logs (and guards) every agent's tool calls
+> - 🧩 evidence of whether your Reviewer pulled in a skill on its own
 
 | Module | You learn to… | Orchestration step | The one rule |
 |---|---|---|---|
 | 0 | Watch one agent do the whole job alone | Baseline | Measure before you multiply |
 | 1 | Turn one job into independently understandable pieces | **Decompose** | Split by independent outcome |
 | 2 | Give each worker only the authority it needs | **Isolate** | Minimum necessary authority |
-| 3 | Give each worker enough model capability | **Route** | Minimum sufficient capability |
-| **4 ← you are here** | **Run the system and decide what work is actually acceptable** | **Execute** | **Returned is not done. Verify before you accept.** |
+| **3 ← you are here** | **Run the system and decide what work is actually acceptable** | **Execute** | **Returned is not done. Verify before you accept.** |
+| 4 | Give each worker enough model capability | **Route** | Minimum sufficient capability |
 | 5 | Handle a launch-night failure | Recover | Green tests are evidence, not a verdict |
 
 > **Module 1 designed the jobs.**
 >
 > **Module 2 bounded the workers.**
 >
-> **Module 3 routed their intelligence.**
+> **Module 3 finds out whether the system actually works.** 🚀
 >
-> **Module 4 finds out whether the system actually works.**
+> **Module 4 then tunes which model each worker gets, using the evidence from this run.**
+
+> 🧭 **Why execute before routing?** Every worker in this run uses the *same* model you used in Module 0. That's not a shortcut. It's what makes the comparison fair: if the crew does better, it's because the **workflow** changed, not because it secretly got a smarter model. Model routing (Module 4) is a tuning step you apply to a crew you've already watched work.
 
 ---
 
-# Everything meets here
+# Everything meets here 🤝
 
 You now have:
 
@@ -45,13 +49,14 @@ agents + permissions
 
         ↓
 
-MODULE 3
-model routes + escalation rules
+MODULE 3  ← you are here
+execute → verify → integrate → review → repair
+(one model for everyone, matched to Module 0)
 
         ↓
 
 MODULE 4
-execute → verify → integrate → review → repair
+model routes + escalation rules, informed by this run
 ```
 
 The architecture you've been building finally becomes a running system.
@@ -83,7 +88,7 @@ flowchart TD
 
 ---
 
-# The most important distinction in this module
+# The most important distinction in this module ❗
 
 An agent can say:
 
@@ -116,7 +121,11 @@ It is to **hold the receipt against the acceptance check**.
 
 ---
 
-# Control plane vs. work plane
+# Control plane vs. work plane 🗼
+
+![An airport air traffic control tower: a glass-walled cab on top of a tall white shaft, against an evening sky](images/control-tower.jpg)
+
+*The tower flies no planes. It decides who goes where, and when. Photo: Harrison Keely, "The FAA air traffic control tower at Philadelphia International Airport," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:The_FAA_air_traffic_control_tower_at_Philadelphia_International_Airport.jpg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (resized).*
 
 Your crew now resembles a real distributed system.
 
@@ -162,7 +171,7 @@ If Lead silently starts writing `importer.py`, the architecture has collapsed ba
 
 ---
 
-# Independence before concurrency
+# Independence before concurrency 🧵
 
 You may hear:
 
@@ -217,7 +226,7 @@ Parallel execution is an optimization you can apply **after** proving independen
 
 ---
 
-# Different files do not prove independence
+# Different files do not prove independence 📁
 
 Suppose:
 
@@ -301,7 +310,7 @@ A + B ❌
 
 ---
 
-# Four protection layers
+# Four protection layers 🛡️
 
 Earlier modules introduced several forms of protection.
 
@@ -348,15 +357,15 @@ is runtime isolation.
 
 ---
 
-# Worktrees: useful isolation, not magic
+# Worktrees: useful isolation, not magic 🌳
 
-Module 0 and Module 4 use separate Git worktrees:
+Module 0 and Module 3 use separate Git worktrees:
 
 ```mermaid
 flowchart TB
     S["starter commit"]
     S --> W1["single agent worktree<br/>Module 0"]
-    S --> W2["orchestrated worktree<br/>Module 4"]
+    S --> W2["orchestrated worktree<br/>Module 3"]
 
     W1 <-. "separate working copies" .-> W2
 ```
@@ -392,11 +401,11 @@ worktree
 
 ---
 
-# What exactly are we comparing?
+# What exactly are we comparing? ⚖️
 
 This matters.
 
-Module 3 produced a routing policy such as:
+In Module 4 you'll build a routing policy such as:
 
 ```text
 Breaker     → Tier 1
@@ -405,7 +414,7 @@ Reviewer    → Tier 2
 Lead        → Tier 2
 ```
 
-But Module 0 used **one model configuration**.
+But Module 0 used **one model configuration**, so today's run does too.
 
 If we now change:
 
@@ -423,7 +432,7 @@ review
 
 all at once, we cannot honestly say which change caused any improvement.
 
-So Module 4 separates **two useful questions**.
+So Module 3 separates **two useful questions**.
 
 ---
 
@@ -455,7 +464,7 @@ one agent
 
 versus
 
-Module 4
+Module 3
 Lead + specialists + explicit acceptance gates
 ```
 
@@ -467,7 +476,7 @@ This gets us closer to asking:
 
 ## Experiment B — Best routed system
 
-Your Module 3 routing policy may intentionally use different models for different jobs.
+The routing policy you'll build in Module 4 may intentionally use different models for different jobs.
 
 That answers another question:
 
@@ -481,15 +490,13 @@ The model routing changed too.
 
 > 🔑 **Match your conclusion to your experiment.**
 
-Today we preserve the matched comparison first.
+Today we run Experiment A only.
 
-Then we use your stronger routed Reviewer in the assurance phase.
-
-A fully routed rerun is available as a Level Up.
+Experiment B (a fully routed rerun) is a Level Up at the end of Module 4, once you have a routing policy worth testing.
 
 ---
 
-# Fair comparisons need more than a stopwatch
+# Fair comparisons need more than a stopwatch ⏱️
 
 Suppose three agents truly execute in parallel for ten minutes:
 
@@ -529,7 +536,7 @@ When evaluating orchestration, record multiple dimensions.
 
 ---
 
-# The coordination tax
+# The coordination tax 💸
 
 Multi-agent workflows can gain:
 
@@ -580,9 +587,137 @@ Finding out **where** each wins is the purpose of the experiment.
 
 ---
 
-# Exercise 4 — Orchestrated Run + Matched Comparison 🔬
+# 🧩 Skills and 🪝 hooks: two more parts of the harness
 
-**Time:** approximately 40 minutes
+So far your crew gets its instructions in three ways:
+
+- **AGENTS.md**, loaded into every session whether it's needed or not
+- **task cards**, which Lead pushes to a worker when it delegates
+- **permissions**, a static allow / ask / deny list checked on every tool call
+
+OpenCode has two more, and they sit at opposite ends of a spectrum:
+
+| Mechanism | Who decides it gets used? | When it acts | Good for | Panic Pantry example |
+|---|---|---|---|---|
+| 📜 AGENTS.md | Nobody. It's always loaded | Every session | Project-wide rules | "Never write `data/promotions.json`" |
+| 🗂️ Task card | Lead pushes it | At delegation | One job's brief | `workshop/cards/builder.md` |
+| 🔐 Permission | Config | Every tool call | Allow or deny a tool or path | Implementer may edit only `importer.py` |
+| 🧩 **Skill** | **The agent pulls it in** | Only when the agent decides it's relevant | Reusable know-how, loaded on demand | A promo-policy review checklist |
+| 🪝 **Hook** | **Code, not the model** | Every tool call, by every agent | Logging, guards and nudges that must not depend on the model remembering | A flight recorder plus a frozen-file guard |
+
+> 🔑 **A skill is pulled. A hook is pushed.** An agent can ignore a skill. It can't ignore a hook.
+
+---
+
+## 🧩 Skills: know-how the agent fetches when it needs it
+
+![A pilot's hand on a cockpit keypad, with a stack of checklist cards clipped beside the controls](images/preflight-checklist.jpg)
+
+*A pilot doesn't memorize every checklist. The right one comes out for the right phase of flight. Photo: U.S. Air Force, "Preflight checklist," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Preflight_checklist_(14443492762).jpg), public domain.*
+
+A skill is a folder with one file in it:
+
+```text
+.opencode/skills/promo-policy-review/SKILL.md
+```
+
+```markdown
+---
+name: promo-policy-review
+description: Panic Pantry checklist for reviewing, auditing or accepting code that
+  creates, imports or changes promotions or discounts (importer.py, ...). Use when
+  reviewing the CSV promo importer or any promo/discount change.
+---
+
+# Promo policy review
+Start your report with: Checklist: promo-policy-review
+1. The 20% rule lives in the service, not the importer ...
+```
+
+Here's the important part: **at startup, OpenCode shows each agent only the `name` and `description` of every skill.** The body stays on the shelf. When the agent decides a task matches a description, it calls the `skill` tool and the full checklist lands in its context.
+
+```mermaid
+sequenceDiagram
+    participant H as You
+    participant R as @reviewer
+    participant S as Skill shelf
+    H->>R: "Review the importer against TICKET-001"
+    Note over R,S: R can see every skill's name + description,<br/>but none of their bodies
+    R->>R: "promo-policy-review says: use when reviewing<br/>the CSV promo importer. That's this task."
+    R->>S: skill(name: "promo-policy-review")
+    S-->>R: full checklist (now in context)
+    R->>H: "Checklist: promo-policy-review ... Verdict: FIX FIRST"
+```
+
+*Figure 3a — How an agent pulls in a skill.*
+Text alternative: you ask the Reviewer for a review. The Reviewer sees only the names and descriptions of available skills, decides the promo-policy-review description matches the task, calls the skill tool, receives the full checklist, and then reports using it.
+
+Three consequences:
+
+1. **The description is the trigger.** Write it like a search query: name the files, the task and the words people will actually use. A vague description means the skill never gets pulled.
+2. **Skills are cheap until used.** AGENTS.md costs context in every session. A skill's body costs nothing until an agent loads it.
+3. **"Pulled" means "optional".** If the rule must hold every time, a skill is the wrong tool. Use a permission, a hook or a test.
+
+You can control which skills an agent may load with the `skill` permission, the same way you locked `edit` and `task` in Module 2:
+
+```yaml
+permission:
+  skill:
+    "*": deny
+    "promo-policy-review": allow
+```
+
+`skill: deny` removes the skill tool from that agent entirely.
+
+---
+
+## 🪝 Hooks: code that runs on every tool call
+
+![A bright orange flight data recorder, the airliner "black box", labeled in French "Enregistreur de vol, ne pas ouvrir" (flight recorder, do not open)](images/flight-data-recorder.jpg)
+
+*An airliner's flight data recorder writes down what happened whether or not the crew remembers to. Photo: U.S. National Transportation Safety Board, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fdr_sidefront.jpg), public domain.*
+
+A hook is a function OpenCode calls at a fixed point in its loop. You register hooks in a **plugin**, a JavaScript or TypeScript file that OpenCode auto-loads from `.opencode/plugins/` at startup.
+
+| Hook | When OpenCode calls it | What it can do |
+|---|---|---|
+| `tool.execute.before` | Just before any tool runs | Read the arguments, log them, change them, or **throw to block the call** |
+| `tool.execute.after` | Just after a tool returns | Log the result, or **append text the model will read** |
+| `chat.message` | When a new message arrives | Observe or annotate the conversation |
+| `event` | On every internal event (session idle, file edited, …) | Notify, record, react |
+
+You won't write a plugin from scratch today. The course ships one in `workshop/kit/plugins/crew-guard.js`, with three hooks:
+
+```text
+🛫 Flight recorder   before every tool call → append a row to workshop/tool-log.md
+🛑 Frozen-file guard before every write     → refuse writes to fixtures/, scripts/, tickets/,
+                                              data/promotions.json*, the contract test, AGENTS.md
+🔔 Test nudge        after a write to src/ or tests/ → add "run the tests before you report DONE"
+                                              to the result the agent reads
+```
+
+The guard's core is about ten lines:
+
+```js
+"tool.execute.before": async (input, output) => {
+  if (WRITE_TOOLS.has(input.tool)) {
+    const hit = targetPaths(output.args, directory).find((p) => FROZEN.some((f) => p.startsWith(f)))
+    if (hit) throw new Error(`crew-guard: ${hit} is frozen for every agent. Report the problem instead.`)
+  }
+},
+```
+
+When a hook throws, the tool call doesn't happen and the agent sees the error message as the tool's result. Nobody had to remember the rule.
+
+> ⚠️ **Hooks are another slice of Swiss cheese, not a sandbox.** This guard only checks the edit/write tools. An agent that runs `sed -i` on a fixture through `bash` slips past it (that's what your Module 2 `bash` allowlist is for). Hooks also see only what goes through OpenCode's tools, the same limit permissions have.
+
+> 🧪 **Test hooks live.** `opencode debug agent … --tool …` (Module 2) checks permissions without a model, and it **does not run plugin hooks**. To see a hook fire, use a real session.
+
+---
+
+# Exercise 3 — Orchestrated Run + Matched Comparison 🔬
+
+**Time:** approximately 50 minutes (the 40-minute run, plus about 10 for the hook and skill)
 
 ### Core question
 
@@ -590,7 +725,7 @@ Can an orchestrated workflow produce a better accepted result than the Module 0 
 
 ---
 
-# Starting checkpoint
+# Starting checkpoint 📍
 
 Move into the orchestrated worktree:
 
@@ -624,7 +759,7 @@ began from the same starter commit.
 
 ---
 
-# Step 1 — Bring in the experiment harness
+# Step 1 — Bring in the experiment harness 🧰
 
 Your cards and custom agents were created outside this worktree and were never part of the starter commit.
 
@@ -697,7 +832,7 @@ This will matter when you inspect the diff.
 
 ---
 
-# Step 2 — Create the run ledger
+# Step 2 — Create the run ledger 📒
 
 Create:
 
@@ -742,7 +877,7 @@ and should remain a coordinator.
 
 ---
 
-# Step 3 — Preflight the contract
+# Step 3 — Preflight the contract 📜
 
 Before the timer starts, re-read:
 
@@ -774,7 +909,7 @@ Module 1's rule still applies.
 
 ---
 
-# Step 4 — Preflight ownership
+# Step 4 — Preflight ownership 🏷️
 
 Your ownership map should now be boringly obvious:
 
@@ -794,7 +929,7 @@ Module 2 deliberately created the exact workers needed for these jobs.
 
 ---
 
-# Step 5 — Match the model condition
+# Step 5 — Match the model condition 🎛️
 
 For the **timed matched comparison**, Lead, Implementer, and Breaker must use the same model + variant used in your Module 0 baseline.
 
@@ -819,41 +954,35 @@ and continue—but do not describe the result as a perfectly matched comparison.
 
 ---
 
-## Important: Module 3 routing is temporarily overridden here
+## No routing yet: that's deliberate 🎛️
 
-Module 3 may have pinned different models for:
+You haven't picked per-agent models yet. That's Module 4.
 
-```text
-lead
-implementer
-breaker
+So for this run, **every agent inherits the session model**. Pick the Module 0 model + variant in `/models` before you start, and every child session will use it.
+
+Quick check that nobody has a stray `model:` line:
+
+```bash
+grep -n '^model:' .opencode/agents/*.md || echo "no pins: every agent inherits the session model ✅"
 ```
 
-That's correct for the production routing policy.
+If a file *does* have a `model:` line, delete it in **this worktree's copy only** for the timed run.
 
-But this experiment is answering a different question.
-
-In the **copies inside this worktree only**, set Lead, Implementer, and Breaker to the Module 0 model/variant for the timed run.
-
-Do not change your original Module 3 files.
-
-Why?
+Why so strict?
 
 ```text
-Module 3:
-"What is our best route?"
+Module 3 matched run:
+"What changes when only the workflow structure changes?"
 
-Module 4 matched run:
-"What changes when workflow structure changes?"
+Module 4:
+"Now that we've seen the crew work, which model does each worker need?"
 ```
 
 Different questions require different controls.
 
-Reviewer can keep the stronger route chosen in Module 3 because Reviewer runs in the **post-timebox assurance phase**, which we record separately.
-
 ---
 
-# Step 6 — Preflight the locks
+# Step 6 — Preflight the locks 🔐
 
 Before the clock begins, verify the capability architecture still exists.
 
@@ -881,7 +1010,32 @@ Do not discover halfway through the experiment that everyone was secretly `gener
 
 ---
 
-# Step 7 — Start OpenCode as Lead
+## 🪝 Add one more slice: the crew-guard hook
+
+Copy the course's plugin into this worktree:
+
+```bash
+mkdir -p .opencode/plugins
+cp ../../panic-pantry/workshop/kit/plugins/crew-guard.js .opencode/plugins/
+```
+
+Open it and skim it (2 minutes). Find the three hooks: flight recorder, frozen-file guard, test nudge.
+
+> 🔮 **Predict:** will you see any 🛑 BLOCKED rows today?
+>
+> <details><summary>Reveal</summary>
+>
+> Probably not. If your Module 2 locks hold, no crew member can write a frozen file, so the guard never fires. That's fine: seatbelts mostly don't. The guard earns its place because its holes are in **different places** from the YAML locks. It still holds if someone loosens an agent file later, if you switch to the built-in `build` agent, or if a new agent joins the crew without locks. Different holes, more slices.
+>
+> </details>
+
+Plugins load when OpenCode starts, so it'll be active from Step 7 on. You'll know it's live when `workshop/tool-log.md` appears.
+
+Add one row to your ledger's **Human interventions** table: `crew-guard hook on`. The Module 0 baseline didn't have it, so it's part of what you're comparing.
+
+---
+
+# Step 7 — Start OpenCode as Lead 🧭
 
 Run:
 
@@ -939,7 +1093,7 @@ Begin.
 
 ---
 
-# What Lead should do
+# What Lead should do 🧭
 
 Because this V1 lab runs child delegations in the foreground, you will probably observe something like:
 
@@ -977,7 +1131,15 @@ runtime concurrency
 
 ---
 
-# Step 9 — Watch the state, not the prose
+# Step 9 — Watch the state, not the prose 👀
+
+> 🛫 **Open a second terminal** in this worktree and run:
+>
+> ```bash
+> tail -f workshop/tool-log.md
+> ```
+>
+> Now you see every tool call by every agent, as it happens, written by code rather than summarized by a model. Each session has its own short ID in the **Session** column. When Lead delegates you'll see a `delegated to @implementer` row, and the new ID that follows is the child's session. If a 🛑 **BLOCKED** row ever appears, an agent tried to touch a frozen file: log it as a caught boundary violation in your ledger.
 
 When a child returns:
 
@@ -1003,7 +1165,7 @@ Now verify.
 
 ---
 
-# The acceptance gate
+# The acceptance gate 🚪
 
 For each artifact, ask three questions.
 
@@ -1029,7 +1191,7 @@ It is not the evidence itself.
 
 ---
 
-# Step 10 — Inspect the child sessions
+# Step 10 — Inspect the child sessions 🔍
 
 After both workers have run, inspect their child sessions.
 
@@ -1050,7 +1212,7 @@ This is useful evidence about **orchestration fidelity**:
 
 ---
 
-# A new failure category: routing failure
+# A new failure category: routing failure 🔀
 
 Suppose:
 
@@ -1078,13 +1240,13 @@ It's a:
 
 > **routing failure**
 
-Module 4 is where you start diagnosing the system instead of saying:
+Module 3 is where you start diagnosing the system instead of saying:
 
 > “The AI got it wrong.”
 
 ---
 
-# Step 11 — Integration gate
+# Step 11 — Integration gate 🧩
 
 When both artifacts have returned—or the timer is nearly finished—inspect the whole system.
 
@@ -1142,7 +1304,7 @@ to inspect everything else in the experiment directory.
 
 ---
 
-# Step 12 — Run the integrated suite
+# Step 12 — Run the integrated suite ✅
 
 Run:
 
@@ -1172,7 +1334,7 @@ Record the result in the ledger.
 
 ---
 
-# If integration fails
+# If integration fails 🚨
 
 Do not let whoever happens to be available patch whatever file is convenient.
 
@@ -1218,7 +1380,7 @@ Breaker
 
 ---
 
-# Artifact ownership persists through repair
+# Artifact ownership persists through repair 🔁
 
 This is a major orchestration rule.
 
@@ -1264,7 +1426,7 @@ clear accountability
 
 ---
 
-# Repair cards
+# Repair cards 🛠️
 
 A repair should be narrow.
 
@@ -1293,7 +1455,7 @@ You decompose again when feedback creates new work.
 
 ---
 
-# Hard stop means hard stop
+# Hard stop means hard stop 🛑
 
 At 15 minutes:
 
@@ -1334,11 +1496,11 @@ From this point forward, record additional time separately as:
 assurance / integration / rework time
 ```
 
-This is where Module 3's routed Reviewer enters.
+The Reviewer enters here.
 
-The Reviewer may use the stronger model configuration you chose in Module 3.
+Keep it on the same model as the rest of the crew. If you're curious whether a stronger Reviewer finds more, that's exactly the kind of question Module 4 teaches you to test properly.
 
-That means:
+Recording assurance time separately means:
 
 ```text
 matched implementation result
@@ -1354,7 +1516,23 @@ remain distinguishable.
 
 ---
 
-# Step 13 — Ask Reviewer to inspect the integrated product
+# Step 13 — Ask Reviewer to inspect the integrated product 🔎
+
+## 🧩 First, put a skill on the shelf (and don't tell Reviewer)
+
+The matched window is over, so you can change the harness now without spoiling the comparison.
+
+```bash
+mkdir -p .opencode/skills
+cp -R ../../panic-pantry/workshop/kit/skills/promo-policy-review .opencode/skills/
+opencode debug skill | grep '"name"'     # promo-policy-review should be listed
+```
+
+Skills load at startup: **quit OpenCode (`ctrl+c`) and start it again.** Lead's session isn't lost: `/sessions` brings it back if you need it.
+
+> 🔮 **Predict:** the prompt below never mentions the skill. Will Reviewer load it anyway? What in `SKILL.md` would make it decide to?
+
+Seeing other skills listed too? OpenCode also loads skills from `~/.config/opencode/skills/`, `~/.claude/skills/` and `~/.agents/skills/`. Every agent can see those as well, which is worth knowing about any machine you run agents on.
 
 Send:
 
@@ -1382,13 +1560,32 @@ For every finding include file:line, the contract rule at risk, and whether the 
 Also report missing coverage separately.
 ```
 
+## 🔍 Did it pull the skill in?
+
+Check two places:
+
+```bash
+grep 'skill' workshop/tool-log.md
+# expect a row like: | 21:14:09 | …a3F9 | skill | loaded skill: promo-policy-review |
+```
+
+and the first line of Reviewer's report: `Checklist: promo-policy-review`.
+
+| What you see | What it means |
+|---|---|
+| ✅ Log row **and** checklist line | The description matched the task, so the agent pulled the know-how in by itself |
+| 🤔 Checklist line, no log row | The hook didn't see the call. Check that `crew-guard.js` is in `.opencode/plugins/` and that you restarted |
+| ❌ Neither | The agent decided the skill wasn't relevant. Reread the `description`: would *you* match it to this task? Or check whether `reviewer.md` denies `skill` |
+
+If it didn't load, don't rewrite the prompt to say "use the skill". That turns a *pulled* skill into a *pushed* instruction and hides the real problem. Fix the description, restart, and run Step 13 again. Note it in the ledger.
+
 Reviewer produces **evidence**.
 
 Reviewer does not make the release decision.
 
 ---
 
-# Step 14 — Disposition every finding
+# Step 14 — Disposition every finding 🗳️
 
 Do not leave Reviewer output as a pile of prose.
 
@@ -1439,7 +1636,7 @@ The human owner still decides what they mean.
 
 ---
 
-# Step 15 — Repair loop
+# Step 15 — Repair loop 🔁
 
 For each `FIX`:
 
@@ -1491,7 +1688,7 @@ That is part of the coordination tax.
 
 ---
 
-# Step 16 — Measure the workflow honestly
+# Step 16 — Measure the workflow honestly 📏
 
 Now compare with Module 0.
 
@@ -1517,13 +1714,13 @@ Do not invent unavailable token or cost data.
 
 ---
 
-# Quality-adjusted economics
+# Quality-adjusted economics 💰
 
-Module 3 taught:
+Module 4 will formalize this as:
 
 > **Optimize cost to accepted result—not token price alone.**
 
-Module 4 lets you observe that idea.
+This run lets you observe the idea first, with your own numbers.
 
 Imagine:
 
@@ -1567,7 +1764,7 @@ coordination tax
 
 ---
 
-# What counts as an orchestration win?
+# What counts as an orchestration win? 🏆
 
 Not only:
 
@@ -1603,7 +1800,7 @@ human attention
 
 ---
 
-# Step 17 — Diagnose failures by layer
+# Step 17 — Diagnose failures by layer 🩺
 
 Instead of saying:
 
@@ -1669,7 +1866,7 @@ Different fix.
 
 ---
 
-# Step 18 — Inspect the orchestration itself
+# Step 18 — Inspect the orchestration itself 🔬
 
 Before finishing, ask:
 
@@ -1693,7 +1890,7 @@ This evaluates the **orchestration**, not just the Python code.
 
 ---
 
-# Step 19 — Write the comparison conclusion carefully
+# Step 19 — Write the comparison conclusion carefully ✍️
 
 At the bottom of `workshop/integration-notes.md`, write:
 
@@ -1732,7 +1929,7 @@ One classroom trial cannot support that.
 
 ---
 
-# Required artifacts
+# Required artifacts 📦
 
 By the end you should have:
 
@@ -1740,6 +1937,7 @@ By the end you should have:
 src/panic_pantry/importer.py
 tests/test_promo_import.py
 workshop/integration-notes.md
+workshop/tool-log.md        ← written by the crew-guard hook, not by you
 ```
 
 plus captured evidence for:
@@ -1758,7 +1956,7 @@ The `.opencode/` files and cards are experiment infrastructure, not product outp
 
 # Acceptance checks ✅
 
-Before leaving Module 4:
+Before leaving Module 3:
 
 - [ ] Orchestrated worktree began from the same starter commit as Module 0
 - [ ] Frozen contract confirmed before delegation
@@ -1772,6 +1970,8 @@ Before leaving Module 4:
 - [ ] Product diff contains `src/` and `tests/`, not orchestration scaffolding
 - [ ] Full suite ran after integration
 - [ ] Reviewer ran after the matched window
+- [ ] crew-guard hook was live for the timed run (`workshop/tool-log.md` exists) and any 🛑 BLOCKED rows were logged
+- [ ] You checked whether Reviewer pulled in `promo-policy-review` on its own, and recorded the answer
 - [ ] Every Reviewer finding became FIX, ACCEPT, or DEFER
 - [ ] FIX items returned to the original artifact owner
 - [ ] Integration/rework time was recorded separately
@@ -1779,7 +1979,7 @@ Before leaving Module 4:
 
 ---
 
-# Troubleshooting
+# Troubleshooting 🩹
 
 | Problem | Diagnose it as | What to do |
 |---|---|---|
@@ -1798,53 +1998,47 @@ Before leaving Module 4:
 
 ---
 
-# ⚡ Level Up — Run the production route
+# ⚡ Level Up — Lock the skill shelf 🧩🔐
 
 <details>
-<summary><b>▶ Optional — now use the routing policy from Module 3</b></summary>
+<summary><b>▶ Optional — decide which agents may pull which skills</b></summary>
 
-The matched experiment intentionally held model configuration constant.
+Right now every agent can load every skill, including whatever is in `~/.claude/skills/` on this machine.
 
-Now ask a different question:
+1. In this worktree's `.opencode/agents/reviewer.md`, add under `permission:`
 
-> **How does our best routed architecture perform?**
+   ```yaml
+   skill:
+     "*": deny
+     "promo-policy-review": allow
+   ```
 
-Restore the Module 3 model assignments for:
+2. In `breaker.md`, add `skill: deny`.
+3. Check the result without spending a token:
 
-```text
-Lead
-Implementer
-Breaker
-Reviewer
-```
+   ```bash
+   opencode debug agent breaker | grep -A4 '"skill"'
+   # look for "action": "deny" on the skill permission, and "skill": false in its tools
+   ```
 
-Then run the same workflow from a fresh starter state.
+**Deeper lesson:** a skill is context, and context can carry instructions. Treat the skill shelf like any other input to an agent with tools: decide who may read what.
 
-Now you are testing:
+</details>
 
-```text
-specialized tasks
-+
-specialized permissions
-+
-specialized models
-+
-acceptance gates
-+
-repair loop
-```
+---
 
-This is closer to how you would actually deploy the architecture.
+# ⚡ Level Up — Write your own hook 🪝
 
-But phrase the conclusion correctly:
+<details>
+<summary><b>▶ Optional — add a guard of your own to crew-guard.js</b></summary>
 
-> “Our fully routed orchestrated workflow achieved X.”
+Pick one, add it inside the `tool.execute.before` hook, restart OpenCode, and **prove it fires in a live session** (remember: `opencode debug agent` skips hooks).
 
-Do **not** conclude:
+- **No pushes during the run:** throw if `input.tool === "bash"` and the command contains `git push` or `git commit`.
+- **No network:** throw on `webfetch` and `websearch`. (Which Module 2 "lethal trifecta" leg does that cut?)
+- **Size limit:** throw if a `write` to `src/` has more than 120 lines of content (AGENTS.md's file-size rule, now enforced).
 
-> “Multiple agents caused X.”
-
-Several variables changed.
+Then ask yourself: should this rule live in a **permission**, a **hook** or a **test**? A permission is simplest when it's just "this tool / this path". A hook earns its keep when the rule needs logic: content, counts, combinations.
 
 </details>
 
@@ -1989,7 +2183,7 @@ You do not need to redesign the task decomposition just because the scheduler im
 
 ---
 
-# Debrief
+# Debrief 🗣️
 
 <details>
 <summary><b>▶ If Implementer and Breaker are independent, why run them sequentially?</b></summary>
@@ -2127,7 +2321,7 @@ It's good routing.
 
 ---
 
-# The whole course so far
+# The whole course so far 🗺️
 
 ```text
 MODULE 1 — DECOMPOSE
@@ -2140,12 +2334,7 @@ MODULE 2 — ISOLATE
         │  What authority is necessary?
         ▼
 
-MODULE 3 — ROUTE
-        │
-        │  How much capability is sufficient?
-        ▼
-
-MODULE 4 — EXECUTE
+MODULE 3 — EXECUTE   ← you are here
         │
         │  Dispatch
         │  Verify
@@ -2155,9 +2344,18 @@ MODULE 4 — EXECUTE
         ▼
 
         ACCEPTED RESULT
+        │
+        ▼
+
+MODULE 4 — ROUTE     ← next
+        │
+        │  How much capability is sufficient?
+        ▼
+
+        A CHEAPER (OR SAFER) ACCEPTED RESULT
 ```
 
-And throughout Module 4:
+And throughout Module 3:
 
 ```text
                  HUMAN
@@ -2181,7 +2379,7 @@ And throughout Module 4:
 
 ---
 
-# Eight things to remember 🔑
+# Nine things to remember 🔑
 
 1. **Returned is not done. Verify before you accept.**
 2. **The orchestrator coordinates; specialists produce.**
@@ -2191,14 +2389,15 @@ And throughout Module 4:
 6. **Integration deserves its own acceptance gate.**
 7. **Artifact ownership persists through repair.**
 8. **Match your conclusion to the experiment you actually ran.**
+9. **A skill is pulled; a hook is pushed.** Know-how the agent may need goes in a skill. A rule that must hold every time goes in a hook, permission or test.
 
 ---
 
 > 🔑 **Module 1:** own the outcome.  
 > 🔑 **Module 2:** bound the authority.  
-> 🔑 **Module 3:** right-size the intelligence.  
-> 🔑 **Module 4:** verify before acceptance.
+> 🔑 **Module 3:** verify before acceptance.  
+> 🔑 **Module 4 (next):** right-size the intelligence.
 
 ---
 
-**Next:** [Module 5](module-5-capstone.md) — the crew says the release is ready. Now the system fails on launch night, and you have to decide what evidence to trust.
+**Next:** [Module 4](module-4-model-routing.md) — you've watched every worker run on one model. Now decide which model each one actually needs, and why the most expensive model shouldn't automatically get every job.
