@@ -14,7 +14,7 @@ WORKTREES="$SCRIPT_DIR/worktrees"
 
 if [ -d "$WORKTREES" ] && [ "${1:-}" != "--force" ]; then
   echo "[setup] already set up: $WORKTREES exists."
-  echo "[setup] Re-running WIPES both worktrees (your Module 0 and Module 3 work)."
+  echo "[setup] Re-running WIPES both worktrees (your Module 0 and Module 4 work)."
   echo "[setup] If that's really what you want: bash sandbox/setup.sh --force"
   exit 1
 fi

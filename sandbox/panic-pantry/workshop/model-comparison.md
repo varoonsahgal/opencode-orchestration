@@ -1,4 +1,4 @@
-# Model comparison (Module 4)
+# Model comparison (Module 3)
 
 Same prompt, same starting state, a fresh session per run.
 Write model IDs exactly as OpenCode shows them. Write "unavailable" for any number you can't see; never estimate.

@@ -8,20 +8,19 @@ Every objective and topic from [COURSE_OUTLINE.md](../COURSE_OUTLINE.md):
 |---|---|
 | Break complex features into agent-ready units; boundaries; task size | ML1 (bad-split Predict: split by file) ([module 1](module-1-decomposition.md)) |
 | Write task specifications and acceptance criteria | ML1 (the 6-line card), Ex1 Steps 3–5, including the Stranger Test in Step 5 ([module 1](module-1-decomposition.md)) |
-| Identify dependencies, sequencing, safe parallel work, needed context | ML1 (Fig. 1), Ex1 (plan's Order line; critical-path Level up), ML3, Ex3 ([module 1](module-1-decomposition.md), [module 3](module-3-parallel-run.md)) |
+| Identify dependencies, sequencing, safe parallel work, needed context | ML1 (Fig. 1), Ex1 (plan's Order line; critical-path Level up), ML4, Ex4 ([module 1](module-1-decomposition.md), [module 4](module-4-parallel-run.md)) |
 | Prompting → orchestrating; too-large/ambiguous/coupled tasks | Opening, Ex0 ([module 0](module-0-baseline.md)) |
 | Primary agent vs subagents; child sessions; fresh context | ML2, Ex2 ([module 2](module-2-agent-crew.md)) |
-| Delegating (Task tool) vs invoking directly (@-mention); letting primary pick subagents | ML2, Ex2, Ex3 ([module 2](module-2-agent-crew.md), [module 3](module-3-parallel-run.md)) |
-| Foreground vs background delegated work | ML3 — explained + recorded instructor demo (experimental in pinned V1; not exercised live) ([module 3](module-3-parallel-run.md)) |
+| Delegating (Task tool) vs invoking directly (@-mention); letting primary pick subagents | ML2, Ex2, Ex4 ([module 2](module-2-agent-crew.md), [module 4](module-4-parallel-run.md)) |
+| Foreground vs background delegated work | ML4 — explained + recorded instructor demo (experimental in pinned V1; not exercised live) ([module 4](module-4-parallel-run.md)) |
 | Navigating parent/child sessions | ML2, Ex2 step 5 ([module 2](module-2-agent-crew.md)) |
 | When delegation adds value vs keeping work local | Ex1 Step 1 (keep or delegate), capstone step 2 ([module 1](module-1-decomposition.md), [module 5](module-5-capstone.md)) |
 | Creating custom agents; instructions; roles; reusable designs | Ex2 (implementer, reviewer, lead; `/review-ticket` command Level up) ([module 2](module-2-agent-crew.md)) |
-| Tool/permission control; read-only reviewer; controlled write access; preventing dangerous actions; controlling delegation targets | ML2, Ex2: `edit: deny` reviewer, path-locked implementer, `bash` allowlists, locks proved with `opencode debug agent` (Step 3); `permission.task` allowlist on the lead (Step 6); trifecta Level up. Ex3 lets the primary route a card ([module 2](module-2-agent-crew.md), [module 3](module-3-parallel-run.md)) |
-| Model capability vs complexity/risk; reasoning-quality/latency/cost; variants and effort levels; escalation; avoiding expensive-model waste | ML4, Ex4 ([module 4](module-4-model-routing.md)) |
-| Selecting models in OpenCode; per-agent models | ML4 (`/models`, per-agent `model`), Ex4 ([module 4](module-4-model-routing.md)) |
-| Parallel orchestration; shared context; file ownership; conflict prevention; branches/worktrees; deliverable tracking | ML3, Ex3 ([module 3](module-3-parallel-run.md)) |
-| Review, validate, integrate multi-agent results | ML5, Ex3 integration, capstone ([module 3](module-3-parallel-run.md), [module 5](module-5-capstone.md)) |
-| Skills (on-demand know-how the agent pulls in) and hooks (plugin code on every tool call) | ML3 concept section, Ex3 Step 6 (crew-guard hook), Step 9 (live tool log), Step 13 (Reviewer pulls in a skill unprompted); Level ups: lock the skill shelf, write your own hook ([module 3](module-3-parallel-run.md)) |
+| Tool/permission control; read-only reviewer; controlled write access; preventing dangerous actions; controlling delegation targets | ML2, Ex2: `edit: deny` reviewer, path-locked implementer, `bash` allowlists, locks proved with `opencode debug agent` (Step 3); `permission.task` allowlist on the lead (Step 6); trifecta Level up. Ex4 lets the primary route a card ([module 2](module-2-agent-crew.md), [module 4](module-4-parallel-run.md)) |
+| Model capability vs complexity/risk; reasoning-quality/latency/cost; variants and effort levels; escalation; avoiding expensive-model waste | ML3, Ex3 ([module 3](module-3-model-routing.md)) |
+| Selecting models in OpenCode; per-agent models | ML3 (`/models`, per-agent `model`), Ex3 ([module 3](module-3-model-routing.md)) |
+| Parallel orchestration; shared context; file ownership; conflict prevention; branches/worktrees; deliverable tracking | ML4, Ex4 ([module 4](module-4-parallel-run.md)) |
+| Review, validate, integrate multi-agent results | ML5, Ex4 integration, capstone ([module 4](module-4-parallel-run.md), [module 5](module-5-capstone.md)) |
 
 ## Appendix B — Command crib sheet
 
@@ -40,11 +39,7 @@ opencode debug agent reviewer --tool write --params '{"filePath":"src/panic_pant
 # <Leader> = ctrl+x by default (press, release, then the next key)
 # /new or <Leader>+n = fresh session · /models or <Leader>+m = model picker · /sessions or <Leader>+l = session list
 # ctrl+t = cycle model variants (effort) · ctrl+p = command palette · esc = interrupt · /connect = add a provider
-git switch -c scratch/ex4                         # throwaway branch; delete later with git branch -D
-opencode debug skill                              # list every skill agents can see (project, global, ~/.claude/skills)
-tail -f workshop/tool-log.md                      # live view of every tool call (written by the crew-guard hook, Module 3)
-# Skills: .opencode/skills/<name>/SKILL.md (name + description frontmatter) · restart OpenCode to pick up changes
-# Hooks:  .opencode/plugins/*.js|ts, auto-loaded at startup · `opencode debug agent` does NOT run hooks
+git switch -c scratch/ex3                         # throwaway branch; delete later with git branch -D
 ```
 
 **Agent file skeleton** (`.opencode/agents/<name>.md`; the file name is the agent name):
@@ -91,12 +86,6 @@ Model catalogs, free-model availability and these pages change. Recheck anything
 | [images/opencode-tui.png](images/opencode-tui.png) | [OpenCode project](https://github.com/sst/opencode) README screenshot (resized) | MIT License, © 2025 opencode |
 | [images/critical-path.png](images/critical-path.png) | Illes, "5n PERT graph with critical path," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:5n_PERT_graph_with_critical_path.svg) (rasterized, cropped) | Public domain |
 | [images/swiss-cheese-model.png](images/swiss-cheese-model.png) | Davidmack, "Swiss cheese model of accident causation," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Swiss_cheese_model_of_accident_causation.png) (resized) | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) |
-| [images/key-ring.jpg](images/key-ring.jpg) | Tmorrisey, "Key ring full," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Key_ring_full.jpg) | Public domain |
-| [images/control-tower.jpg](images/control-tower.jpg) | Harrison Keely, "The FAA air traffic control tower at Philadelphia International Airport," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:The_FAA_air_traffic_control_tower_at_Philadelphia_International_Airport.jpg) (resized) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-| [images/preflight-checklist.jpg](images/preflight-checklist.jpg) | U.S. Air Force, "Preflight checklist," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Preflight_checklist_(14443492762).jpg) (resized) | Public domain |
-| [images/flight-data-recorder.jpg](images/flight-data-recorder.jpg) | U.S. National Transportation Safety Board, "Fdr sidefront," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fdr_sidefront.jpg) | Public domain |
-| [images/railway-switch-lever.jpg](images/railway-switch-lever.jpg) | W.carter, "Railway switch lever on Grötö," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Railway_switch_lever_on_Gr%C3%B6t%C3%B6.jpg) (resized) | Public domain |
-| [images/night-launch.jpg](images/night-launch.jpg) | NASA Marshall Space Flight Center / Terry White, "NASA's Evolved SLS Block 1B Crew Rocket - Night Launch," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NASA%E2%80%99s_Evolved_SLS_Block_1B_Crew_Rocket_-_Night_Launch_(B1B_Crew_Night_Launch).jpg) (resized) | Public domain |
 
 Images are stored locally so the handout works offline, like the rest of the course.
 
@@ -117,9 +106,9 @@ Look things up here; don't pre-read it. Each term links to the module that teach
 | **Builder / Breaker** | The two TICKET-001 jobs. The Builder writes the importer. The Breaker writes tests from the ticket (never from the Builder's code) that attack it, starting with every way `FREE-ALL` could go live | [Module 1](module-1-decomposition.md) |
 | **Acceptance check** | An executable way to decide "done": the card's DONE line. "Looks good" isn't one | [Module 1](module-1-decomposition.md) |
 | **Idempotent** | Safe to run twice: the second run changes nothing | [TICKET-001](../sandbox/panic-pantry/tickets/TICKET-001.md), criterion 6 |
-| **Disposition** | The decided outcome for an item. For a CSV row: which `ImportReport` bucket it lands in. For a review finding: fix, accept with reason, or defer with an owner | [Module 4](module-4-model-routing.md), [Module 5](module-5-capstone.md) |
+| **Disposition** | The decided outcome for an item. For a CSV row: which `ImportReport` bucket it lands in. For a review finding: fix, accept with reason, or defer with an owner | [Module 3](module-3-model-routing.md), [Module 5](module-5-capstone.md) |
 | **Intervention** | Any time you step into a run to steer it — a correction, clarification, or manual edit | [Module 0](module-0-baseline.md) |
-| **Matched comparison** | Two runs with the same commit, ticket, tests, model, and timebox, so the only difference is the approach | [Module 3](module-3-parallel-run.md) |
+| **Matched comparison** | Two runs with the same commit, ticket, tests, model, and timebox, so the only difference is the approach | [Module 4](module-4-parallel-run.md) |
 
 **OpenCode vocabulary**
 
@@ -128,17 +117,15 @@ Look things up here; don't pre-read it. Each term links to the module that teach
 | **Primary agent** | The agent you talk to directly in the main conversation. Built-ins: **Build** (full tools) and **Plan** (can't edit your files, but can still run shell commands). Tab switches between them | [Module 0](module-0-baseline.md) |
 | **Subagent** | A helper agent the primary (or you) hands one task to. Built-ins in 1.18.33: **explore** (fast codebase search; read-only by its prompt only, since it may run shell commands) and **general** (multi-step tasks; can edit). You'll build your own | [Module 2](module-2-agent-crew.md) |
 | **Session / child session** | A session is one conversation. A delegation creates a **child session** under it — a new conversation with fresh, empty context | [Module 2](module-2-agent-crew.md) |
-| **Session tree** | A parent session plus the child sessions its delegations created. You walk it with the child-navigation keys | [Module 3](module-3-parallel-run.md) |
+| **Session tree** | A parent session plus the child sessions its delegations created. You walk it with the child-navigation keys | [Module 4](module-4-parallel-run.md) |
 | **@-mention** | *You* choose the subagent: `@reviewer check the diff` | [Module 2](module-2-agent-crew.md) |
-| **Task tool** | The tool the *primary agent* calls to delegate on its own. It chooses the subagent by reading each subagent's `description`; `permission.task` limits which ones it may pick. Subagents don't get it | [Module 2](module-2-agent-crew.md), [Module 3](module-3-parallel-run.md) |
+| **Task tool** | The tool the *primary agent* calls to delegate on its own. It chooses the subagent by reading each subagent's `description`; `permission.task` limits which ones it may pick. Subagents don't get it | [Module 2](module-2-agent-crew.md), [Module 4](module-4-parallel-run.md) |
 | **Permission** (`allow` / `ask` / `deny`) | Configured authority per action: `allow` runs, `ask` pauses for your approval, `deny` blocks — whatever the prompt says | [Module 2](module-2-agent-crew.md) |
 | **Frontmatter** | The YAML block between `---` fences at the top of an agent file — its settings. The body below is its system prompt | [Module 2](module-2-agent-crew.md) |
-| **Provider / model ID** | A provider is a model service (Anthropic, OpenAI, OpenCode Zen, …). Models are named `provider_id/model_id` | [Module 4](module-4-model-routing.md) |
-| **Variant (effort)** | A preset for the same model — e.g., a higher thinking budget or reasoning effort. `ctrl+t` cycles variants | [Module 4](module-4-model-routing.md) |
+| **Provider / model ID** | A provider is a model service (Anthropic, OpenAI, OpenCode Zen, …). Models are named `provider_id/model_id` | [Module 3](module-3-model-routing.md) |
+| **Variant (effort)** | A preset for the same model — e.g., a higher thinking budget or reasoning effort. `ctrl+t` cycles variants | [Module 3](module-3-model-routing.md) |
 | **Leader key** | A prefix key for many shortcuts; `ctrl+x` by default. `<Leader>+Down` means press `ctrl+x`, release, then press ↓ | [Module 0](module-0-baseline.md) |
-| **Foreground / background delegation** | Foreground: the primary waits for the child to finish. Background: the child runs while the primary keeps working (experimental in the V1 line; not used live today) | [Module 3](module-3-parallel-run.md) |
-| **Skill** | A folder with a `SKILL.md` (name + description + instructions) in `.opencode/skills/`. Agents see only the name and description until they decide the task matches; then they **pull in** the full body with the `skill` tool. The `skill` permission limits who may load what | [Module 3](module-3-parallel-run.md) |
-| **Plugin / hook** | A plugin is a JS/TS file OpenCode auto-loads from `.opencode/plugins/`. Its **hooks** are functions OpenCode calls at fixed points (e.g., before and after every tool call), so they run every time whether or not the model remembers. Throwing in `tool.execute.before` blocks the call | [Module 3](module-3-parallel-run.md) |
+| **Foreground / background delegation** | Foreground: the primary waits for the child to finish. Background: the child runs while the primary keeps working (experimental in the V1 line; not used live today) | [Module 4](module-4-parallel-run.md) |
 
 **Git words** (tag, branch, worktree, tracked, untracked): see [Appendix F](#appendix-f--git-in-90-seconds).
 
@@ -147,7 +134,7 @@ Look things up here; don't pre-read it. Each term links to the module that teach
 - A **commit** is a saved snapshot of the whole project. A **tag** is a permanent name for one commit: `starter` always means "the shop before anyone touched it".
 - A **branch** is a movable name for a line of work. It moves forward as you commit on it.
 - A **worktree** is an extra folder attached to the same repository, with its own branch checked out. Editing a file in `worktrees/single-agent` can't change the same file in `worktrees/orchestrated`: they're different files on disk.
-- Files Git knows about are **tracked**. New files you create (agent files, cards, notes) are **untracked** until committed, and untracked files exist *only* in the folder where you made them. That's why Module 3 has you copy your agents and cards across.
+- Files Git knows about are **tracked**. New files you create (agent files, cards, notes) are **untracked** until committed, and untracked files exist *only* in the folder where you made them. That's why Module 4 has you copy your agents and cards across.
 
 Why you care: the course ends with a comparison (one agent vs. a crew). Worktrees guarantee both runs start from the same commit and can't contaminate each other.
 

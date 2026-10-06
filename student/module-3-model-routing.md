@@ -1,4 +1,4 @@
-# Module 4 — Route the Models 🧠
+# Module 3 — Route the Models 🧠
 
 > 🎯 **Goal:** choose the **minimum sufficient model capability** for each agent role, prove those choices with evidence, and define exactly when the workflow should escalate to something stronger.
 >
@@ -7,36 +7,28 @@
 > - `workshop/model-comparison.md`
 > - a routing policy for Implementer, Breaker, Reviewer, and Lead
 > - explicit escalation rules
-> - pinned model assignments for the capstone (and an optional routed rerun of Module 3)
+> - model assignments ready for Module 4
 
 | Module | You learn to… | Orchestration step | The one rule |
 |---|---|---|---|
 | 0 | Watch one agent do the whole job alone | Baseline | Measure before you multiply |
 | 1 | Turn one job into independently understandable pieces | **Decompose** | Split by independent outcome |
 | 2 | Give each worker only the authority it needs | **Isolate** | Minimum necessary authority |
-| 3 | Run the crew, verify, escalate, and integrate | Execute | Parallelize work that is actually independent |
-| **4 ← you are here** | **Give each worker enough model capability—without wasting it** | **Route** | **Minimum sufficient capability** |
+| **3 ← you are here** | **Give each worker enough model capability—without wasting it** | **Route** | **Minimum sufficient capability** |
+| 4 | Run the crew, verify, escalate, and integrate | Execute | Parallelize work that is actually independent |
 | 5 | Handle a launch-night failure | Recover | Green tests are evidence, not a verdict |
 
 > **Module 1 decided WHAT jobs exist.**
 >
 > **Module 2 decided WHAT each worker may do.**
 >
-> **Module 3 ran the crew on one model and showed you where it struggled.**
+> **Module 3 decides HOW MUCH model each worker needs.**
 >
-> **Module 4 decides HOW MUCH model each worker actually needs.**
-
-> 🔁 **Why routing comes *after* the run:** in Module 3 every worker used your Module 0 model, on purpose, to keep the comparison fair. You now have real evidence (which worker needed repairs, which one breezed through, what the Reviewer caught). Routing is a lot easier to reason about when you're tuning a crew you've watched work, not guessing about one you haven't.
-
-![A rusty railway switch lever with a red-and-yellow target disc, next to the track it controls](images/railway-switch-lever.jpg)
-
-*A switch lever is cheap, simple and decisive: it sends each train down the track that fits it. Routing a model is the same job. Photo: W.carter, "Railway switch lever on Grötö," [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Railway_switch_lever_on_Gr%C3%B6t%C3%B6.jpg), public domain.*
-
-> 🧩🪝 **Skills and hooks interact with routing.** A strong skill (a sharp checklist the agent pulls in) can let a cheaper model clear the bar, and a hook that enforces a rule means you don't need a pricier model just to *remember* that rule. When you score Task A and Task B below, ask: *would the cheaper configuration have passed with the `promo-policy-review` skill on the shelf?*
+> **Module 4 runs the system.**
 
 ---
 
-# Authority and intelligence are different knobs 🎚️
+# Authority and intelligence are different knobs
 
 In Module 2 you built:
 
@@ -81,7 +73,7 @@ It is:
 
 ---
 
-# The symmetry across Modules 2 and 4
+# The symmetry across Modules 2 and 3
 
 Module 2 taught:
 
@@ -89,7 +81,7 @@ Module 2 taught:
 
 Do not give a Reviewer write access it does not need.
 
-Module 4 teaches:
+Module 3 teaches:
 
 > 🧠 **Minimum sufficient capability**
 
@@ -114,7 +106,7 @@ Put together:
                      ▼
           ┌──────────────────────┐
           │ CAPABILITY           │
-          │ Module 4             │
+          │ Module 3             │
           │ How much model?      │
           └──────────┬───────────┘
                      ▼
@@ -132,7 +124,7 @@ They are separate design decisions.
 
 ---
 
-# Model choice is a hypothesis—not a ranking 🧪
+# Model choice is a hypothesis—not a ranking
 
 You are not going to create a permanent leaderboard such as:
 
@@ -182,7 +174,7 @@ That's a testable hypothesis.
 
 ---
 
-# First: filter out models that cannot do the job 🚧
+# First: filter out models that cannot do the job
 
 Before ranking model quality, ask whether the configuration is even **eligible**.
 
@@ -295,7 +287,7 @@ check organizational policy
 
 ---
 
-# Once a model is eligible: ask three questions ❓
+# Once a model is eligible: ask three questions
 
 These three questions drive the real routing decision.
 
@@ -387,7 +379,7 @@ The second deserves more assurance.
 
 ---
 
-# The original routing matrix 🔲
+# The original routing matrix
 
 
 
@@ -402,7 +394,7 @@ Text alternative: tasks move from low to high ambiguity horizontally and from lo
 
 ---
 
-# But the matrix hides a third dimension 🧊
+# But the matrix hides a third dimension
 
 Consider:
 
@@ -452,7 +444,7 @@ The complete question is therefore:
 
 ---
 
-# An important exception: sometimes the answer is “don't use an LLM” 🙅
+# An important exception: sometimes the answer is “don't use an LLM”
 
 Consider the shop rule:
 
@@ -495,7 +487,7 @@ Do not solve determinism with more intelligence.
 
 ---
 
-# Think in model tiers—not favorite brands 🪜
+# Think in model tiers—not favorite brands
 
 Model names change too quickly to make them the architecture.
 
@@ -514,7 +506,7 @@ Your workflow doesn't have to.
 
 ---
 
-# Your crew now needs a routing hypothesis 🗺️
+# Your crew now needs a routing hypothesis
 
 Start with a hypothesis—not a permanent answer.
 
@@ -554,7 +546,7 @@ That weak verification can justify more reasoning capability.
 
 ---
 
-# Routing should be a control loop—not a static assignment 🔁
+# Routing should be a control loop—not a static assignment
 
 A mature router doesn't merely say:
 
@@ -591,7 +583,7 @@ Escalate when the evidence tells you to.
 
 ---
 
-# When should the router escalate? 📈
+# When should the router escalate?
 
 Do **not** use a magical universal rule like:
 
@@ -642,7 +634,7 @@ Change the route.
 
 ---
 
-# The real cost is not token price 💸
+# The real cost is not token price
 
 Suppose:
 
@@ -718,7 +710,7 @@ Now the stronger model bought you nothing observable.
 
 ---
 
-# OpenCode: provider + model + variant ⚙️
+# OpenCode: provider + model + variant
 
 When you run an experiment, “GPT” or “Claude” is not a useful experimental record.
 
@@ -818,7 +810,7 @@ SAME TOOLS
 
 ---
 
-# OpenCode mechanics 🔧
+# OpenCode mechanics
 
 This course environment targets the same OpenCode V1 setup used in Module 2.
 
@@ -954,7 +946,7 @@ That's why this module ends by pinning important specialist routes.
 
 ---
 
-# OpenCode Zen 🧘
+# OpenCode Zen
 
 OpenCode Zen is OpenCode's curated model provider.
 
@@ -984,21 +976,19 @@ Then route.
 
 ---
 
-# Exercise 4 — Build a routing policy 🔬
+# Exercise 3 — Build a routing policy 🔬
 
 **Time:** approximately 35–40 minutes
-
-> ⏱️ **Short on time?** This module sits late in the day on purpose, so it can flex. **Minimum path (~15 min):** Step 1 → Step 3 (Task A only) → Steps 10–12 (policy, crew map, pin). Drop Task B (Steps 4–6) and Steps 7–9 first, then the Level ups. You'll still leave with a routing policy and pinned models for the capstone.
 
 ### Goal
 
 Compare two model/effort configurations on the **same inputs** using observable outcomes.
 
-Then convert what you observed, here *and* in your Module 3 run ledger, into a routing policy for the crew.
+Then convert what you observed into a routing policy for Module 4.
 
 ---
 
-# Step 1 — Inspect the live catalog 📚
+# Step 1 — Inspect the live catalog
 
 Start:
 
@@ -1073,7 +1063,7 @@ Record what OpenCode actually showed.
 
 ---
 
-# Step 2 — Make the comparison fair ⚖️
+# Step 2 — Make the comparison fair
 
 A model comparison is only useful if you try to hold the rest constant.
 
@@ -1122,7 +1112,7 @@ Run 2 should not benefit from Model 1's answer.
 
 ---
 
-# One run is not a benchmark 🎲
+# One run is not a benchmark
 
 You are about to run each configuration once per task.
 
@@ -1178,7 +1168,7 @@ At the end, comparing multiple people's results gives much stronger evidence tha
 
 ---
 
-# Step 3 — Task A: bounded + objectively checkable ✅
+# Step 3 — Task A: bounded + objectively checkable
 
 This task represents work we suspect a Tier 1 model may handle well.
 
@@ -1277,7 +1267,7 @@ That's a valuable result:
 
 ---
 
-# Step 4 — Task B: hard-to-verify risk reasoning 🕳️
+# Step 4 — Task B: hard-to-verify risk reasoning
 
 We want everyone to evaluate the **same** flawed plan.
 
@@ -1344,7 +1334,7 @@ Don't open the answer yet.
 
 ---
 
-# Step 5 — Run Task B ▶️
+# Step 5 — Run Task B
 
 Use a fresh session for each configuration.
 
@@ -1378,7 +1368,7 @@ Do not modify files.
 
 ---
 
-# Step 6 — Score Task B 🧮
+# Step 6 — Score Task B
 
 First, score how many planted risks each configuration found.
 
@@ -1491,7 +1481,7 @@ This matters because:
 
 ---
 
-# Step 7 — Record time and economics ⏱️
+# Step 7 — Record time and economics
 
 For all four core runs, record:
 
@@ -1526,7 +1516,7 @@ Never estimate it.
 
 ---
 
-# Step 8 — Interpret the result 🔍
+# Step 8 — Interpret the result
 
 Do **not** immediately ask:
 
@@ -1613,7 +1603,7 @@ may still be economically attractive.
 
 ---
 
-# Step 9 — Calculate “cost to accepted result” 💰
+# Step 9 — Calculate “cost to accepted result”
 
 You don't need precise accounting to reason correctly.
 
@@ -1670,7 +1660,7 @@ That's the metric that matters.
 
 ---
 
-# Step 10 — Build your routing policy 🗺️
+# Step 10 — Build your routing policy
 
 At the bottom of:
 
@@ -1736,7 +1726,7 @@ Examples:
 
 ---
 
-# Step 11 — Map the policy to your crew 👥
+# Step 11 — Map the policy to your crew
 
 Now write:
 
@@ -1808,13 +1798,7 @@ temperature: 0.1
 ---
 ```
 
-Do this for agents whose routing policy you want to keep stable from here on.
-
-Your Module 3 worktree still has **copies** of the agents without these `model:` lines. To carry the routing into the capstone, copy the pinned files across:
-
-```bash
-cp .opencode/agents/*.md ../worktrees/orchestrated/.opencode/agents/
-```
+Do this for agents whose routing policy you want to keep stable in Module 4.
 
 ---
 
@@ -1845,7 +1829,7 @@ Now your architecture reflects the policy you actually tested.
 
 ---
 
-# Predict before revealing 🔮
+# Predict before revealing
 
 Suppose your experiment produces:
 
@@ -2119,69 +2103,7 @@ Sometimes the problem is your task design.
 
 ---
 
-# ⚡ Level up — Rerun Module 3 with your routes 🏁
-
-<details>
-<summary><b>▶ Optional — Experiment B: the fully routed crew</b></summary>
-
-Module 3's matched experiment intentionally held model configuration constant.
-
-Now ask a different question:
-
-> **How does our best routed architecture perform?**
-
-Use the model assignments you pinned in Step 12 for:
-
-```text
-Lead
-Implementer
-Breaker
-Reviewer
-```
-
-Then run the Module 3 workflow again from a fresh starter state (a new worktree from the `starter` tag, so your Module 3 result stays intact for the capstone):
-
-```bash
-# from sandbox/panic-pantry
-git worktree add -b routed ../worktrees/routed starter
-(cd ../worktrees/routed && bash scripts/reset.sh)
-mkdir -p ../worktrees/routed/.opencode/agents ../worktrees/routed/workshop/cards
-cp .opencode/agents/*.md ../worktrees/routed/.opencode/agents/
-cp workshop/cards/*.md ../worktrees/routed/workshop/cards/
-cd ../worktrees/routed && opencode
-```
-
-Now you are testing:
-
-```text
-specialized tasks
-+
-specialized permissions
-+
-specialized models
-+
-acceptance gates
-+
-repair loop
-```
-
-This is closer to how you would actually deploy the architecture.
-
-But phrase the conclusion correctly:
-
-> “Our fully routed orchestrated workflow achieved X.”
-
-Do **not** conclude:
-
-> “Multiple agents caused X.”
-
-Several variables changed.
-
-</details>
-
----
-
-# What NOT to conclude 🚫
+# What NOT to conclude
 
 After today's experiment, do not write:
 
@@ -2204,7 +2126,7 @@ That's an engineering conclusion.
 
 ---
 
-# Hints 💡
+# Hints
 
 Use these in order.
 
@@ -2273,7 +2195,7 @@ cost
 
 ---
 
-# Troubleshooting 🩹
+# Troubleshooting
 
 | Problem | What to do |
 |---|---|
@@ -2307,11 +2229,11 @@ Your `workshop/model-comparison.md` should contain:
 - [ ] explicit escalation triggers
 - [ ] routing decision for Implementer, Breaker, Reviewer, and Lead
 - [ ] human-owned decisions identified
-- [ ] relevant agent models pinned (and copied into the orchestrated worktree if you want them for the capstone)
+- [ ] relevant agent models pinned for Module 4
 
 ---
 
-# Debrief 🗣️
+# Debrief
 
 <details>
 <summary><b>▶ Why not just put the strongest model everywhere?</b></summary>
@@ -2505,7 +2427,7 @@ just to make the result pass.
 
 ---
 
-# The entire routing model 🖼️
+# The entire routing model
 
 ```text
                          TASK
@@ -2575,12 +2497,12 @@ just to make the result pass.
 
 > 🔑 **Module 2: minimum necessary authority.**
 >
-> 🔑 **Module 4: minimum sufficient capability.**
+> 🔑 **Module 3: minimum sufficient capability.**
 
-And the single idea to carry into the capstone:
+And the single idea to carry into Module 4:
 
 > **Routing isn't a leaderboard. It's a control loop.**
 
 ---
 
-**Next:** [Module 5](module-5-capstone.md) — the crew says the release is ready. Now the system fails on launch night, and you have to decide what evidence to trust (and which model to send the fix to).
+**Next:** [Module 4](module-4-parallel-run.md) — put the cards, capability boundaries, model routes, acceptance checks, and escalation rules together in one orchestrated run.

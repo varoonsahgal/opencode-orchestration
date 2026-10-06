@@ -1,12 +1,6 @@
 # Module 5 — Micro-lecture 5 + Capstone: midnight launch
 
-**Where you are:** your orchestrated worktree holds an importer, new tests, integration notes, and a filled comparison scorecard. This module is the last skill — verifying and integrating what agents hand back — and the capstone that tests everything under launch pressure. 🚀
-
-![An illustration of a rocket on a floodlit launch pad at night, steam billowing at its base](images/night-launch.jpg)
-
-*Midnight launch: everything has to go right at once, and nobody remembers the checks that "probably passed." Illustration: NASA / Terry White, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:NASA%E2%80%99s_Evolved_SLS_Block_1B_Crew_Rocket_-_Night_Launch_(B1B_Crew_Night_Launch).jpg), public domain.*
-
-> 🛫 **Your crew-guard hook is still on.** When the instructor injects the issue, `workshop/tool-log.md` is your flight recorder: check it before you trust anyone's summary of what happened.
+**Where you are:** your orchestrated worktree holds an importer, new tests, integration notes, and a filled comparison scorecard. This module is the last skill — verifying and integrating what agents hand back — and the capstone that tests everything under launch pressure.
 
 ---
 
@@ -18,7 +12,7 @@ The receipts, in order — and the specific failure each one exists to catch:
 
 1. **Child summary + changed paths** — does every path map to a task card? *Catches boundary violations:* a file changed that no card owns is invisible to a green suite but obvious against the ownership map.
 2. **Deterministic tests** — `python3 -m unittest discover -s tests -v`, run by *you*, output captured. *Catches claimed-but-never-run:* an agent reporting "all tests pass" from a stale or partial run is a claim; your own captured output is evidence.
-3. **The diff** — `git diff starter` (everything since the starting line; Module 3's `git add -A` made the new files visible to it), read with your own eyes. *Catches plausible-but-wrong:* agents write code that looks finished; the diff is where reimplemented policy and quiet scope creep hide. Plausible is not the bar.
+3. **The diff** — `git diff starter` (everything since the starting line; Module 4's `git add -A` made the new files visible to it), read with your own eyes. *Catches plausible-but-wrong:* agents write code that looks finished; the diff is where reimplemented policy and quiet scope creep hide. Plausible is not the bar.
 4. **Independent review** — `@reviewer`, whose incentives are findings, not completion. *Catches author blindness:* the implementer cannot flag the assumption it didn't know it made; a reviewer with a checklist can.
 5. **The human decision** — findings get dispositioned: fix, accept with reason, or defer with an owner. *Catches silent deferral:* a finding nobody answered is a decision nobody made. Silence is not a disposition.
 
@@ -71,14 +65,14 @@ The capstone injects a real integration issue. Your finish line is not a fix; it
 
 **Goal:** resolve an injected integration issue and ship a release note with evidence. It is 11:45 PM at Panic Pantry; the CSV import just "finished."
 
-**Starting checkpoint:** stay in `sandbox/worktrees/orchestrated` with your Exercise 3 result. **The instructor now injects one integration issue into your worktree.** Then:
+**Starting checkpoint:** stay in `sandbox/worktrees/orchestrated` with your Exercise 4 result. **The instructor now injects one integration issue into your worktree.** Then:
 
 ```bash
 python3 -m unittest discover -s tests -v     # something is now wrong — or is it?
 git status && git diff starter
 ```
 
-You may edit your Exercise 3 files plus `workshop/release-note.md`.
+You may edit your Exercise 4 files plus `workshop/release-note.md`.
 
 ### Steps
 

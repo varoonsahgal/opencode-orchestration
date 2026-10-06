@@ -146,7 +146,7 @@ def changed_files():
         if path == IMPORTER:
             tag = "Builder's file"
         elif path == "tests/test_promo_import.py":
-            tag = "reserved for the Ex3 Breaker: out of scope here" if BRANCH == "single-agent" else "Breaker's file"
+            tag = "reserved for the Ex4 Breaker: out of scope here" if BRANCH == "single-agent" else "Breaker's file"
         elif path.startswith(("workshop/", ".opencode/")):
             tag = "your notes and agent setup"
         elif FROZEN.match(path):
