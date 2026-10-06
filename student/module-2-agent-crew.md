@@ -14,21 +14,21 @@
 | 0 | Watch one agent do the whole job alone | Baseline | Measure before you multiply |
 | 1 | Turn one job into independently understandable pieces | **Decompose** | Split by independent outcome; avoid overlapping writes |
 | **2 ← you are here** | **Turn task boundaries into enforced capability boundaries** | **Isolate** | **Describe intent in the prompt. Enforce authority with permissions.** |
-| 3 | Match the right model to each role | Route | Authority and intelligence are different knobs |
-| 4 | Run the crew, integrate its work, and compare with Module 0 | Execute | Parallelize work that is actually independent |
+| 3 | Run the crew, integrate its work, and compare with Module 0 | Execute | Parallelize work that is actually independent |
+| 4 | Match the right model to each role | Route | Authority and intelligence are different knobs |
 | 5 | Handle a launch-night failure | Recover | Green tests are evidence, not a verdict |
 
 > **Module 1 designed the jobs.**
 >
 > **Module 2 builds the workers and their locks.**
 >
-> **Module 3 chooses their brains.**
+> **Module 3 lets the crew loose.**
 >
-> **Module 4 lets the crew loose.**
+> **Module 4 chooses their brains.**
 
 ---
 
-# First: connect this to Module 1
+# First: connect this to Module 1 🔗
 
 Module 1 ended with two task cards:
 
@@ -51,8 +51,8 @@ This module turns those logical roles into actual agents.
 flowchart LR
     M1["Module 1<br/>DECOMPOSE<br/><br/>Builder card<br/>Breaker card"]
     M2["Module 2<br/>ISOLATE<br/><br/>Implementer<br/>Breaker<br/>Reviewer<br/>Lead"]
-    M3["Module 3<br/>ROUTE<br/><br/>Choose models"]
-    M4["Module 4<br/>EXECUTE + INTEGRATE"]
+    M3["Module 3<br/>EXECUTE + INTEGRATE"]
+    M4["Module 4<br/>ROUTE<br/><br/>Choose models"]
 
     M1 --> M2 --> M3 --> M4
 ```
@@ -66,7 +66,7 @@ Those are different things.
 
 ---
 
-# Intent is not authority
+# Intent is not authority 🙅
 
 Suppose an agent file says:
 
@@ -103,7 +103,7 @@ A good system uses both.
 
 ---
 
-# A name is not a security boundary
+# A name is not a security boundary 🏷️
 
 Calling something:
 
@@ -149,7 +149,7 @@ You'll see the same principle in:
 
 ---
 
-# Why bother restricting agents?
+# Why bother restricting agents? 🧯
 
 In Module 0, one powerful agent could:
 
@@ -191,6 +191,10 @@ Mistake
 
 ### Least privilege
 
+![A personal key ring holding several door keys, a car remote and a name tag](images/key-ring.jpg)
+
+*Each key opens exactly one door. Least privilege means handing an agent the one key its card needs, not the whole ring. Photo: Tmorrisey, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Key_ring_full.jpg), public domain.*
+
 ```text
 Agent
   │
@@ -220,7 +224,7 @@ They limit what those mistakes can directly affect.
 
 ---
 
-# Four different boundaries
+# Four different boundaries 🧱
 
 Before touching OpenCode configuration, distinguish these:
 
@@ -247,7 +251,7 @@ We'll return to that later.
 
 ---
 
-# Your crew
+# Your crew 👥
 
 We're going to build **three specialists and one coordinator**.
 
@@ -285,7 +289,7 @@ Integrated result → @reviewer
 
 ---
 
-# Breaker vs. Reviewer
+# Breaker vs. Reviewer 🥊
 
 These roles are deliberately different.
 
@@ -322,7 +326,7 @@ They are independent in **different ways**.
 
 ---
 
-# Before YAML: design the capability policy
+# Before YAML: design the capability policy 📐
 
 Do not begin by memorizing OpenCode syntax.
 
@@ -388,7 +392,7 @@ The orchestration concepts stay the same even when the configuration syntax chan
 
 ---
 
-# How an OpenCode agent file works
+# How an OpenCode agent file works ⚙️
 
 One agent definition lives in one Markdown file:
 
@@ -486,7 +490,7 @@ That's why later in this module you'll test the permission system directly.
 
 ---
 
-# A fresh child context is not an empty brain
+# A fresh child context is not an empty brain 🧠
 
 When a subagent runs, OpenCode gives it a separate child session.
 
@@ -540,7 +544,7 @@ That matters because independent reasoning can catch assumptions the original wo
 
 ---
 
-# Context isolation vs. capability isolation
+# Context isolation vs. capability isolation 🫧
 
 These solve different problems.
 
@@ -926,7 +930,7 @@ We need to test the **control**, not the model's willingness to obey it.
 
 ---
 
-# Behavioral test vs. enforcement test
+# Behavioral test vs. enforcement test 🧪
 
 These ask different questions.
 
@@ -1255,7 +1259,7 @@ A coordinator's effective authority includes the authority it can reach through 
 
 ---
 
-# Effective authority
+# Effective authority 🎖️
 
 Compare:
 
@@ -1394,7 +1398,7 @@ Return to the Build agent when finished.
 
 ---
 
-# Stop here and look at what you built
+# Stop here and look at what you built ✋
 
 You now have:
 
@@ -1421,7 +1425,7 @@ It is a small **capability architecture**.
 
 ---
 
-# Prompts, permissions, isolation, verification
+# Prompts, permissions, isolation, verification 🧩
 
 At this point, you have four layers:
 
@@ -1621,7 +1625,7 @@ Nothing to review.
 
 If it invents defects in code that does not exist, it just failed a useful evaluation.
 
-Run the same command again in Module 4 after the implementation exists.
+Run the same command again in Module 3 after the implementation exists.
 
 > ⚠️ Don't name this file `review.md`.
 >
@@ -1777,7 +1781,7 @@ Notice what we have **not** done yet:
 chosen a different model for every role
 ```
 
-That's Module 3.
+That's Module 4.
 
 Today we designed:
 
@@ -1842,7 +1846,7 @@ Before leaving Module 2, verify:
 
 ---
 
-# Troubleshooting
+# Troubleshooting 🩹
 
 | Problem | Fix |
 |---|---|
@@ -1866,7 +1870,7 @@ git checkout -- src/panic_pantry/store.py
 
 ---
 
-# Debrief
+# Debrief 🗣️
 
 <details>
 <summary><b>▶ Why have both a Breaker and a Reviewer?</b></summary>
@@ -2083,7 +2087,7 @@ do not give an agent authority unrelated to its responsibility
 
 ---
 
-# The entire module in one picture
+# The entire module in one picture 🖼️
 
 ```text
 MODULE 1
@@ -2118,19 +2122,19 @@ IMPLEMENTER BREAKER REVIEWER
                ▼
 
 MODULE 3
-ROUTE MODELS
-
-Which brain fits each role?
-               │
-               ▼
-
-MODULE 4
 EXECUTE + INTEGRATE
 
 Run specialists
 combine results
 run all checks
 review evidence
+               │
+               ▼
+
+MODULE 4
+ROUTE MODELS
+
+Which brain fits each role?
 ```
 
 ---
@@ -2151,4 +2155,4 @@ review evidence
 
 ---
 
-**Next:** [Module 3](module-3-model-routing.md): decide which model each worker gets—and why the most expensive model should not automatically get every job.
+**Next:** [Module 3](module-3-parallel-run.md): let the crew loose on the real ticket, verify everything it hands back, and compare the result with your Module 0 baseline.

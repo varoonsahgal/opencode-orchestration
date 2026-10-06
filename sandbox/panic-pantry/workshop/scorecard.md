@@ -1,9 +1,9 @@
-# Scorecard: one agent (Module 0) vs. a crew (Module 4)
+# Scorecard: one agent (Module 0) vs. a crew (Module 3)
 
 Run `bash scripts/score.sh` in the checkout you're scoring and copy in its four rows: contract tests, whole suite, policy source check, files changed.
 Fill in the other five yourself: model + variant, interventions, elapsed, rework minutes, tokens / cost.
 
-| Row | Module 0: one agent | Module 4: crew |
+| Row | Module 0: one agent | Module 3: crew |
 |---|---|---|
 | Model + variant (from the status bar; by hand) | | |
 | Contract tests passing (/9) | | |

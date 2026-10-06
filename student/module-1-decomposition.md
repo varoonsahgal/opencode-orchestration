@@ -1,4 +1,4 @@
-# Module 1 — Split the Job
+# Module 1 — Split the Job ✂️
 
 > 🎯 **Goal:** turn one ticket into clear jobs that different agents can execute with minimal coordination and that you can verify independently.
 >
@@ -9,8 +9,8 @@
 | 0 | Watch one agent do the whole job alone | Baseline | Measure before you multiply |
 | **1 ← you are here** | **Turn one job into clean, verifiable pieces** | **Decompose** | **Split by independent outcome; avoid overlapping writes** |
 | 2 | Build agents with hard limits on what they can touch | Isolate | A role is a permission, not a name |
-| 3 | Pick the right model for each piece | Budget | Cheap model + hard check beats pricey model + blind trust |
-| 4 | Give the cards to agents, run them, and compare with Module 0 | Execute | Parallelize only work that is actually independent |
+| 3 | Give the cards to agents, run them, and compare with Module 0 | Execute | Parallelize only work that is actually independent |
+| 4 | Pick the right model for each piece | Budget | Cheap model + hard check beats pricey model + blind trust |
 | 5 | Handle a launch-night failure | Recover | Green tests are evidence, not a verdict |
 
 ---
@@ -108,7 +108,7 @@ Both may produce perfectly reasonable work...
 
 ---
 
-# Three things that are easy to confuse
+# Three things that are easy to confuse 🤹
 
 Modern agent harnesses make this especially important.
 
@@ -200,7 +200,7 @@ They are designing one tightly coupled algorithm.
 
 ---
 
-# A teammate's four-agent plan
+# A teammate's four-agent plan 🧑‍🤝‍🧑
 
 A teammate looks at TICKET-001 and proposes:
 
@@ -258,7 +258,7 @@ That becomes:
 
 ---
 
-# The better rule
+# The better rule 📏
 
 Do **not** reduce the lesson to:
 
@@ -274,7 +274,7 @@ It is just not the entire theory of orchestration.
 
 ---
 
-# For this lab: one writer per file
+# For this lab: one writer per file ✍️
 
 This workshop deliberately uses a stricter rule:
 
@@ -339,7 +339,7 @@ It is:
 
 ---
 
-# Taking turns: what it fixes — and what it doesn't
+# Taking turns: what it fixes — and what it doesn't 🔄
 
 Suppose A finishes before B starts.
 
@@ -382,7 +382,7 @@ That can be perfectly reasonable.
 
 ---
 
-# Builder + Breaker
+# Builder + Breaker 🔨
 
 We will therefore create two roles.
 
@@ -412,7 +412,7 @@ flowchart TD
 
 ---
 
-# Why have a Breaker?
+# Why have a Breaker? 💥
 
 A Builder should absolutely test its own work.
 
@@ -448,7 +448,7 @@ That knowledge can also create blind spots.
 
 ---
 
-# Why can't the Breaker read `importer.py`?
+# Why can't the Breaker read `importer.py`? 🙈
 
 Because this particular Breaker is doing **black-box contract testing**.
 
@@ -514,7 +514,7 @@ Different sources of evidence.
 
 ---
 
-# The existing exam is not enough
+# The existing exam is not enough 📝
 
 `tests/test_importer_contract.py` contains 9 frozen contract tests.
 
@@ -566,7 +566,7 @@ That's why the Breaker attacks **the whole contract**, not merely the most drama
 
 ---
 
-# The card is the agent's task brief
+# The card is the agent's task brief 🗂️
 
 We will describe each delegated job using a **card**.
 
@@ -600,7 +600,7 @@ Anything essential to this job that is absent from the card becomes something th
 
 ---
 
-# The six-line card
+# The six-line card 🃏
 
 Every card uses the same six labels:
 
@@ -668,7 +668,7 @@ You'll start it again in Step 5.
 
 ---
 
-# Step 1 — Decide what is worth delegating
+# Step 1 — Decide what is worth delegating ⚖️
 
 ### What are you actually deciding?
 
@@ -820,7 +820,7 @@ Does it require my judgment?
 
 ---
 
-# Step 2 — Save the orchestration plan
+# Step 2 — Save the orchestration plan 💾
 
 ### Do — 2 minutes
 
@@ -914,7 +914,7 @@ Those are not the same thing.
 
 ---
 
-# Step 3 — Copy the Builder card
+# Step 3 — Copy the Builder card 📄
 
 ### Do — 1 minute
 
@@ -1030,7 +1030,7 @@ The report should tell the orchestrator:
 
 ---
 
-# Step 4 — Write the Breaker card
+# Step 4 — Write the Breaker card 🧨
 
 ### Goal
 
@@ -1128,13 +1128,13 @@ the test module loads correctly
 and correctly recognizes that importer.py is absent
 ```
 
-In Module 4, those tests will run against the real Builder result.
+In Module 3, those tests will run against the real Builder result.
 
 </details>
 
 ---
 
-# Step 5 — The Stranger Test
+# Step 5 — The Stranger Test 🕵️
 
 Even a carefully written card may still contain hidden assumptions.
 
@@ -1354,7 +1354,7 @@ Those answers are not always the same.
 
 ---
 
-# Tool reality check
+# Tool reality check 🔧
 
 The conceptual model in this module should survive changes in agent tooling.
 
@@ -1406,7 +1406,7 @@ How will I integrate it?
 
 ---
 
-# Debrief
+# Debrief 🗣️
 
 <details>
 <summary><b>▶ Why does the Breaker not read <code>importer.py</code>?</b></summary>
@@ -1602,7 +1602,7 @@ But the changes can still conflict during integration.
 
 ---
 
-# The lesson in one picture
+# The lesson in one picture 🖼️
 
 ```text
                 ONE REQUEST
@@ -1638,7 +1638,7 @@ But the changes can still conflict during integration.
 
 ---
 
-# Five things to remember
+# Five things to remember 🔑
 
 1. **Split by outcome, not merely by filename.**
 2. **Separate context is not the same thing as separate files.**
